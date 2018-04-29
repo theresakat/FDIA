@@ -5,11 +5,16 @@
 #
 #
 
-# STEP 1. Read in the column headings table (LOAD)
+# STEP 1. 
+#Read in the data to be merged (LOAD)
 
-# STEP 2. Read in the data to be merged (LOAD)
+# STEP 2. 
+#Generate the code for merging (CLEAN)
 
-# STEP 3. Generate the code for merging (CLEAN)
-
-# STEP 4. Merging (CLEAN)
+# STEP 3. 
+#Merging (CLEAN)
 dd<-unite(d,"response",1:3, sep = "_")
+
+# STEP 4. 
+#Read in the column headings table (LOAD2)
+

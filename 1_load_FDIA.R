@@ -21,11 +21,15 @@ library(plyr)
 library(reshape2)
 library(ggplot2)
 
-# Set working directory
-setwd("C:\\temp\\FDIA-Analysis-in-R")
+# Set working directory and path to input CSV on Windows laptop
+#mywd<-"C:\\temp\\FDIA-Analysis-in-R"
+#setwd(mywd)
+#myfile<-paste(mywd,"\\CSV\\Framework Data Inventory  Assessment v. 1.0.csv", sep = "")
 
-# Set path to input CSV
-myfile<-"C:\\temp\\FDIA-Analysis-in-R\\CSV\\Framework Data Inventory  Assessment v. 1.0.csv"
+# Set working directory and path to input CSV on Mac
+mywd<-"/Users/tkb/Work/GEO/fdia-mac"
+setwd(mywd)
+myfile<-paste(mywd,"/CSV/Framework Data Inventory  Assessment v. 1.0.csv", sep = "")
 
 # Read the CSV file (Survey Monkey provides a CSV in its downloads)
-x<-read.csv(myfile,header=F, sep=",", skip = 2)
+x<-read.csv(c(myfile),header=F, sep=",", skip = 2)
