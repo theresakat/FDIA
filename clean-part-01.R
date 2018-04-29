@@ -14,7 +14,9 @@ bb<-recode(as.character(b),`FALSE` = "Yes", .default = "")
 df<-data.frame(a,bb); head(df)
 r<-unite(df,"QuesID.13",1:2, sep="")
 QuesID.13<-data.frame(factor(r[,1]))
-names(QuesID.13)<-q; head(QuesID.13)
+names(QuesID.13)<-q
+# levels(QuesID.13[,1])<-c("missing","No","Yes")
+summary(QuesID.13[,1])
 rm(df,bb,r)
 
 ### Question 14 (QID114) ###
@@ -25,7 +27,9 @@ bb<-recode(as.character(b),`FALSE` = "Yes", .default = "")
 df<-data.frame(a,bb); head(df)
 r<-unite(df,"QuesID.14",1:2, sep="")
 QuesID.14<-data.frame(factor(r[,1]))
-names(QuesID.14)<-q; head(QuesID.14)
+names(QuesID.14)<-q
+levels(QuesID.14[,1])<-c("missing","No","Yes")
+summary(QuesID.14[,1])
 rm(df,bb,r)
 
 ### Question 16 (QID006) ###
@@ -38,7 +42,8 @@ cc<-recode(as.character(c),`FALSE` = "Other", .default = "")
 df<-data.frame(a,b,cc); df[1:10,]
 r<-unite(df,"QuesID.16",1:3, sep="")
 QuesID.16<-data.frame(factor(r[,1]))
-names(QuesID.16)<-q; head(QuesID.16)
+names(QuesID.16)<-q
+levels(QuesID.16[,1])<-c("missing", "Active", "Other","Static"); summary(QuesID.16[,1])
 rm(df,c,cc,r)
 
 ### Question 17 (QID105) ###
@@ -96,9 +101,9 @@ QuesID.20<-rdf
 head(QuesID.20)
 rm(df,bb,r,rdf)
 
-unitedQs<-cbind(QuesID.13,QuesID.14,QuesID.15, QuesID.16, QuesID.17,QuesID.18,QuesID.19,QuesID.20)
-# Add the returned values to the data frame "unitedQs" each time.
+unitedQs<-cbind(QuesID.13,QuesID.14, QuesID.16, QuesID.17,QuesID.18,QuesID.19,QuesID.20)
+#rm(QuesID.13,QuesID.14,QuesID.15, QuesID.16, QuesID.17,QuesID.18,QuesID.19,QuesID.20)
 
 ### Continue here with QuesID = 21 (QID109) ###
 # this question has 5 possible responses + open-ended text = 6 responses in total
-
+# Add the returned values to the data frame "unitedQs" each time.
