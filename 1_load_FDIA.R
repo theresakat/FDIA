@@ -18,6 +18,7 @@
 library(tidyr)
 library(stringr)
 library(plyr)
+library(dplyr)
 library(reshape2)
 library(ggplot2)
 

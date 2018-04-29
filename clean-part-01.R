@@ -3,40 +3,102 @@
 # The purpose of this script is to merge response columns into 
 # single columns.
 
-library(tidyr)
+# Step 1. Source 1_load_FDIA.R
+source("1_load_FDIA.R")
 
-# Step 1.
-
-# a<-head(x[,22])
-# a
-# b<-as.character(head(x[,23]))
-# df<-data.frame(a,b)
-# df
-# c<-unite(df,"united",1:2)
-# c
-# df<-cbind(df,c)
-# df
-
-# Question 13
+### Question 13 (QID 112) ###
 q<-"QuesID.13"
 a<-x[,22]; head(a)
-b<-as.character(x[,23]); head(b)
-df<-data.frame(a,b); head(df)
-QuesID.13<-unite(df,"QuesID.13",1:2); head(QuesID.13)
-rm(df)
+b<-is.empty(as.character(x[,23])); str(b); head(b)
+bb<-recode(as.character(b),`FALSE` = "Yes", .default = "")
+df<-data.frame(a,bb); head(df)
+r<-unite(df,"QuesID.13",1:2, sep="")
+QuesID.13<-data.frame(factor(r[,1]))
+names(QuesID.13)<-q; head(QuesID.13)
+rm(df,bb,r)
 
-# Question 14
+### Question 14 (QID114) ###
 q<-"QuesID.14"
 a<-x[,24]; head(a)
-b<-as.character(x[,25]); head(b)
+b<-is.empty(as.character(x[,25])); head(b)
+bb<-recode(as.character(b),`FALSE` = "Yes", .default = "")
+df<-data.frame(a,bb); head(df)
+r<-unite(df,"QuesID.14",1:2, sep="")
+QuesID.14<-data.frame(factor(r[,1]))
+names(QuesID.14)<-q; head(QuesID.14)
+rm(df,bb,r)
+
+### Question 16 (QID006) ###
+q<-"QuesID.16"
+a<-x[,27]; head(a)
+b<-x[,28]; head(b)
+# create logical object where nonempty values return FALSE & signify open-ended text
+c<-is.empty(as.character(x[,29])); str(c)
+cc<-recode(as.character(c),`FALSE` = "Other", .default = "")
+df<-data.frame(a,b,cc); df[1:10,]
+r<-unite(df,"QuesID.16",1:3, sep="")
+QuesID.16<-data.frame(factor(r[,1]))
+names(QuesID.16)<-q; head(QuesID.16)
+rm(df,c,cc,r)
+
+### Question 17 (QID105) ###
+q<-"QuesID.17"
+a<-x[,30]; head(a)
+b<-x[,31]; head(b)
 df<-data.frame(a,b); head(df)
-QuesID.14<-unite(df,"QuesID.14",1:2); head(QuesID.14)
+r<-unite(df,"QuesID.17",1:2, sep=""); 
+QuesID.17<-data.frame(factor(r[,1]))
+names(QuesID.17)<-q
+levels(QuesID.17[,1])<-c("missing","No","Yes")
+head(QuesID.17)
 rm(df)
 
-# Question 15
-q<-"QuesID.15"
-a<-x[,27]; head(a)
-b<-as.character(x[,28]); head(b)
-df<-data.frame(a,b); head(df)
-QuesID.15<-unite(df,"QuesID.15",1:2, sep=""); head(QuesID.15)
-rm(df)
+### Question 18 (QID106) ###
+q<-"QuesID.18"
+a<-x[,32]; head(a)
+# create logical object where nonempty values return FALSE & signify response = "No"
+b<-is.empty(as.character(x[,33])); head(b)
+bb<-recode(as.character(b),`FALSE` = "No", .default = "")
+df<-data.frame(a,bb); head(df)
+r<-unite(df,"QuesID.18",1:2, sep="")
+QuesID.18<-data.frame(factor(r[,1]))
+names(QuesID.18)<-q; 
+levels(QuesID.18[,1])<-c("missing","No","Yes")
+head(QuesID.18)
+rm(df,bb,r)
+
+### Question 19 (QID107) ###
+q<-"QuesID.19"
+a<-x[,34]; head(a)
+# create logical object where nonempty values return FALSE & signify response = "No"
+b<-is.empty(as.character(x[,35])); head(b)
+bb<-recode(as.character(b),`FALSE` = "No", .default = "")
+df<-data.frame(a,bb); head(df)
+r<-unite(df,"QuesID.19",1:2, sep="")
+QuesID.19<-data.frame(factor(r[,1]))
+names(QuesID.19)<-q; summary(QuesID.19[,1])
+levels(QuesID.19[,1])<-c("missing","No","Yes"); summary(QuesID.19[,1])
+head(QuesID.19)
+rm(df,bb,r)
+
+### Question 20 (QID108) ###
+q<-"QuesID.20"
+a<-x[,36]; head(a)
+# create logical object where nonempty values return FALSE & signify response = "No"
+b<-is.empty(as.character(x[,37])); head(b)
+bb<-recode(as.character(b),`FALSE` = "No", .default = "")
+df<-data.frame(a,bb); head(df)
+r<-unite(df,"resp",1:2, sep="")
+rdf<-data.frame(factor(r[,1]))
+names(rdf)<-q; summary(rdf[,1])
+levels(rdf[,1])<-c("missing","No","Yes"); summary(rdf[,1])
+QuesID.20<-rdf
+head(QuesID.20)
+rm(df,bb,r,rdf)
+
+unitedQs<-cbind(QuesID.13,QuesID.14,QuesID.15, QuesID.16, QuesID.17,QuesID.18,QuesID.19,QuesID.20)
+# Add the returned values to the data frame "unitedQs" each time.
+
+### Continue here with QuesID = 21 (QID109) ###
+# this question has 5 possible responses + open-ended text = 6 responses in total
+
