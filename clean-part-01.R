@@ -104,6 +104,24 @@ rm(df,bb,r,rdf)
 unitedQs<-cbind(QuesID.13,QuesID.14, QuesID.16, QuesID.17,QuesID.18,QuesID.19,QuesID.20)
 #rm(QuesID.13,QuesID.14,QuesID.15, QuesID.16, QuesID.17,QuesID.18,QuesID.19,QuesID.20)
 
-### Continue here with QuesID = 21 (QID109) ###
+### QuesID = 21 (QID109) ###
 # this question has 5 possible responses + open-ended text = 6 responses in total
 # Add the returned values to the data frame "unitedQs" each time.
+q<-"QuesID.21"
+cols<-c(38:43)
+# create logical object where nonempty values return FALSE & signify response equals the 
+    # appropriate value OR figure out how to recode the responses at the end
+a<-as.character(x[,cols[1]]); head(a)
+a<-is.empty(a); head(a)
+
+b<-as.character(x[,cols[2]]) 
+b<-is.empty(b); head(b)
+
+df<-data.frame(a,bb); head(df)
+r<-unite(df,"resp",1:2, sep="")
+rdf<-data.frame(factor(r[,1]))
+names(rdf)<-q; summary(rdf[,1])
+levels(rdf[,1])<-c("missing","No","Yes"); summary(rdf[,1])
+QuesID.20<-rdf
+head(QuesID.20)
+rm(df,bb,r,rdf)
