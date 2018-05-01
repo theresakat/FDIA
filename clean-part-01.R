@@ -6,35 +6,45 @@
 # Step 1. Source 1_load_FDIA.R
 source("1_load_FDIA.R")
 
-### Question 13 (QID 112) ###
+mydata<- data.frame(rowID=c(1:length(x[,1])))
+
+### Question 13 (QID 112) (data_num version) ###
 q<-"QuesID.13"
 a<-x[,22]; head(a)
-b<-is.empty(as.character(x[,23])); str(b); head(b)
-bb<-recode(as.character(b),`FALSE` = "Yes", .default = "")
-df<-data.frame(a,bb); head(df)
-r<-unite(df,"QuesID.13",1:2, sep="")
-QuesID.13<-data.frame(factor(r[,1]))
+alog<-is.empty(as.character(a))
+aa<-recode(as.character(alog),'FALSE'="2", .default = "") #recode "No" from 1 to 2
+b<-x[,23]
+blog<-is.empty(as.character(b))
+bb<-recode(as.character(blog),`FALSE` = "1", .default = "") #recode "Yes" from NULL to 1
+df<-data.frame(aa,bb); head(df)
+r<-unite(df,paste(c(q)),1:2, sep="")
+QuesID.13<-data.frame(factor(r[,1], labels=c("Yes","No")))
 names(QuesID.13)<-q
-# levels(QuesID.13[,1])<-c("missing","No","Yes")
 summary(QuesID.13[,1])
-rm(df,bb,r)
+mydata<-cbind(mydata,QuesID.13)
+rm(df,aa,bb,r,q,a,b, alog,blog)
 
 ### Question 14 (QID114) ###
 q<-"QuesID.14"
-a<-x[,24]; head(a)
-b<-is.empty(as.character(x[,25])); head(b)
-bb<-recode(as.character(b),`FALSE` = "Yes", .default = "")
-df<-data.frame(a,bb); head(df)
-r<-unite(df,"QuesID.14",1:2, sep="")
-QuesID.14<-data.frame(factor(r[,1]))
+a<-factor(x[,24], levels= c(1), labels = c(scoring)); head(a); str(a)
+alog<-is.empty(as.character(a))
+aa<-recode(as.character(alog),'FALSE'="2", .default = "", .missing = NULL) #recode "No" to 2
+b<-x[,25]
+blog<-is.empty(as.character(b))
+bb<-recode(as.character(blog),`FALSE` = "1", .default = "", .missing = NULL) #recode "Yes" to 1
+df<-data.frame(aa,bb); head(df)
+r<-unite(df,paste(c(q)),1:2, sep="")
+QuesID.14<-data.frame(factor(r[,1], levels = c(1,2), labels=c("Yes","No")))
+str(QuesID.14)
 names(QuesID.14)<-q
-levels(QuesID.14[,1])<-c("missing","No","Yes")
 summary(QuesID.14[,1])
-rm(df,bb,r)
+mydata<-cbind(mydata,QuesID.14)
+rm(df,aa,bb,r,q,a,b, alog,blog)
 
-### Question 16 (QID006) ###
+### start reworking here ###
+### Question 16 (QID006) Levels: Active, Static, Other ###
 q<-"QuesID.16"
-a<-x[,27]; head(a)
+a<-factor(x[,27], levels = c(1), labels = c("Active")); head(a); str(a)
 b<-x[,28]; head(b)
 # create logical object where nonempty values return FALSE & signify open-ended text
 c<-is.empty(as.character(x[,29])); str(c)
@@ -101,8 +111,6 @@ QuesID.20<-rdf
 head(QuesID.20)
 rm(df,bb,r,rdf)
 
-unitedQs<-cbind(QuesID.13,QuesID.14, QuesID.16, QuesID.17,QuesID.18,QuesID.19,QuesID.20)
-#rm(QuesID.13,QuesID.14,QuesID.15, QuesID.16, QuesID.17,QuesID.18,QuesID.19,QuesID.20)
 
 ### QuesID = 21 (QID109) ###
 # this question has 5 possible responses + open-ended text = 6 responses in total

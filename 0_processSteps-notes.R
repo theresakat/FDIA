@@ -1,12 +1,13 @@
 ## processSteps-notes.R
 # 4-19-2018
 #
-# PURPOSE: This script merges multple response columns into a single column.
+# PURPOSE: This document describes the process steps for the survey data.
 #
 #
 
 # STEP 1. 
 #Read in the data to be merged (LOAD)
+#
 
 # STEP 2. 
 #Generate the code for merging (CLEAN)
