@@ -47,26 +47,31 @@ q<-"QuesID.16"
 i<-27
 j<-28
 k<-29
-# a<-factor(x[,27], levels = c(1), labels = c(paste(scoring[scoring$VarID==27,"label"]))); head(a); str(a)
 a<-factor(x[,i], 
           levels = c(paste(scoring[scoring$VarID==i,"labelCode"])), 
           labels = c(paste(scoring[scoring$VarID==i,"label"]))); head(a); str(a)
+# create logical object where nonempty values return FALSE & signify open-ended text
 alog<-is.empty(as.character(a))
+# recode logical using iterator rowID and corresponding labelCode (e.g., for VarID = 27: labelCode=1 and label="Active")
 aa<-recode(as.character(alog), 'FALSE' = c(paste(scoring[scoring$VarID==i,"labelCode"])), .default = "", .missing = NULL) 
 
 b<-factor(x[,j], 
           levels = c(paste(scoring[scoring$VarID==j,"labelCode"])), 
           labels = c(paste(scoring[scoring$VarID==j,"label"]))); head(b); str(b)
+blog<-is.empty(as.character(b))
+bb<-recode(as.character(blog), 'FALSE' = c(paste(scoring[scoring$VarID==j,"labelCode"])), .default = "", .missing = NULL)
+
 c<-factor(x[,k], 
           levels = c(paste(scoring[scoring$VarID==k,"labelCode"])), 
           labels = c(paste(scoring[scoring$VarID==k,"label"]))); head(c); str(c)
-# create logical object where nonempty values return FALSE & signify open-ended text
-# c<-is.empty(as.character(x[,29])); str(c)
-cc<-recode(as.character(c),`FALSE` = "Other", .default = "")
-df<-data.frame(aa,b,c); df[1:10,]
+clog<-is.empty(as.character(c))
+cc<-recode(as.character(clog), 'FALSE' = c(paste(scoring[scoring$VarID==k,"labelCode"])), .default = "", .missing = NULL)
+
+df<-data.frame(aa,bb,cc); df[1:10,]
 r<-unite(df,"QuesID.16",1:3, sep="")
 QuesID.16<-data.frame(factor(r[,1]))
 names(QuesID.16)<-q
+# pull the levels from the Scoring table
 levels(QuesID.16[,1])<-c("missing", "Active", "Other","Static"); summary(QuesID.16[,1])
 rm(df,c,cc,r)
 
