@@ -44,7 +44,11 @@ rm(df,aa,bb,r,q,a,b, alog,blog)
 ### start reworking here ###
 ### Question 16 (QID006) Levels: Active, Static, Other ###
 q<-"QuesID.16"
-a<-factor(x[,27], levels = c(1), labels = c("Active")); head(a); str(a)
+i<-27
+j<-28
+k<-29
+a<-factor(x[,27], levels = c(1), labels = c(paste(scoring[scoring$VarID==27,"label"]))); head(a); str(a)
+a<-factor(x[,i], levels = c(1), labels = c(paste(scoring[scoring$VarID==i,"label"]))); head(a); str(a)
 b<-x[,28]; head(b)
 # create logical object where nonempty values return FALSE & signify open-ended text
 c<-is.empty(as.character(x[,29])); str(c)
