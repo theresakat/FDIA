@@ -42,18 +42,28 @@ mydata<-cbind(mydata,QuesID.14)
 rm(df,aa,bb,r,q,a,b, alog,blog)
 
 ### start reworking here ###
-### Question 16 (QID006) Levels: Active, Static, Other ###
+### Question 16 (QID006) Levels: Active, Static, Other  VarIDs: 27:29 ###
 q<-"QuesID.16"
 i<-27
 j<-28
 k<-29
-a<-factor(x[,27], levels = c(1), labels = c(paste(scoring[scoring$VarID==27,"label"]))); head(a); str(a)
-a<-factor(x[,i], levels = c(1), labels = c(paste(scoring[scoring$VarID==i,"label"]))); head(a); str(a)
-b<-x[,28]; head(b)
+# a<-factor(x[,27], levels = c(1), labels = c(paste(scoring[scoring$VarID==27,"label"]))); head(a); str(a)
+a<-factor(x[,i], 
+          levels = c(paste(scoring[scoring$VarID==i,"labelCode"])), 
+          labels = c(paste(scoring[scoring$VarID==i,"label"]))); head(a); str(a)
+alog<-is.empty(as.character(a))
+aa<-recode(as.character(alog), 'FALSE' = c(paste(scoring[scoring$VarID==i,"labelCode"])), .default = "", .missing = NULL) 
+
+b<-factor(x[,j], 
+          levels = c(paste(scoring[scoring$VarID==j,"labelCode"])), 
+          labels = c(paste(scoring[scoring$VarID==j,"label"]))); head(b); str(b)
+c<-factor(x[,k], 
+          levels = c(paste(scoring[scoring$VarID==k,"labelCode"])), 
+          labels = c(paste(scoring[scoring$VarID==k,"label"]))); head(c); str(c)
 # create logical object where nonempty values return FALSE & signify open-ended text
-c<-is.empty(as.character(x[,29])); str(c)
+# c<-is.empty(as.character(x[,29])); str(c)
 cc<-recode(as.character(c),`FALSE` = "Other", .default = "")
-df<-data.frame(a,b,cc); df[1:10,]
+df<-data.frame(aa,b,c); df[1:10,]
 r<-unite(df,"QuesID.16",1:3, sep="")
 QuesID.16<-data.frame(factor(r[,1]))
 names(QuesID.16)<-q
