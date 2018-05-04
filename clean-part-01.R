@@ -84,7 +84,7 @@ clog<-is.empty(as.character(c))
 cc<-recode(as.character(clog), 'FALSE' = c(paste(scoring[scoring$VarID==k,"labelCode"])), .default = "", .missing = NULL)
 
 df<-data.frame(aa,bb,cc); df[1:10,]
-r2<-unite(df,"QuesID.16",1:3, sep="")
+r<-unite(df,"QuesID.16",1:3, sep="")
 
 QuesID.16<-data.frame(factor(r[,1]))
 names(QuesID.16)<-q
@@ -99,115 +99,56 @@ mydata<-cbind(mydata,QuesID.16)
 
 rm(a,b,c,df,aa,bb,cc,r,alog,blog,clog,i,j,k,q)
 
+source("yesno.R") # this function imports and cleans Yes/No questions (but not No/Yes questions)
+
 ### Question 17 (QID105) Levels: Yes, No (in this order)  VarIDs: 30-31 ###
-q<-"QuesID.17"
-i<-30
-j<-31
-
-a<-x[,i]; head(a)
-# create logical object where nonempty values return FALSE & signify response = "No"
-alog<-is.empty(as.character(a))
-aa<-recode(as.character(alog),'FALSE'="1", .default = "", .missing = NULL) #"recode "Yes" responses
-b<-x[,j]; head(b)
-blog<-is.empty(as.character(b))
-bb<-recode(as.character(blog),'FALSE' = "2", .default = "", .missing = NULL) #recode "No" responses
-
-df<-data.frame(aa,bb); head(df)
-r<-unite(df,paste(c(q)),1:2, sep=""); 
-
-QuesID.17<-data.frame(factor(r[,1]))
-names(QuesID.17)<-q
-levels(QuesID.17[,1])<-c("missing","Yes","No")
-head(QuesID.17)
-mydata<-cbind(mydata,QuesID.17)
-
-rm(a,b, df,aa,bb,r,alog,blog,i,j,q)
+mydata<-yesno(x,"QuesID.17", 30, 31)
 
 ### Question 18 (QID106) Levels: Yes, No (in this order)  VarIDs: 32-33 ###
-q<-"QuesID.18"
-i<-32
-j<-33
-
-a<-x[,i]; head(a)
-# create logical object where nonempty values return FALSE & signify response = "No"
-alog<-is.empty(as.character(a))
-aa<-recode(as.character(alog),'FALSE'="1", .default = "", .missing = NULL) #"recode "Yes" responses
-b<-x[,j]; head(b)
-blog<-is.empty(as.character(b))
-bb<-recode(as.character(blog),'FALSE' = "2", .default = "", .missing = NULL) #recode "No" responses
-
-df<-data.frame(aa,bb); head(df)
-r<-unite(df,paste(c(q)),1:2, sep="")
-
-QuesID.18<-data.frame(factor(r[,1]))
-names(QuesID.18)<-q; 
-levels(QuesID.18[,1])<-c("missing","Yes","No")
-summary(QuesID.18)
-mydata<-cbind(mydata,QuesID.18)
-
-rm(a,b, df,aa,bb,r,alog,blog,i,j,q)
+mydata<-yesno(x,"QuesID.18", 32, 33)
 
 ### Question 19 (QID107) ###
 ### XLS Cols: AH-AI  Levels: Yes, No (in this order)  VarIDs: 34-35
-q<-"QuesID.19"
-i<-34
-j<-35
+mydata<-yesno(x,"QuesID.19", 34,35)
 
-a<-x[,i]; head(a)
-# create logical object where nonempty values return FALSE & signify response = "No"
-alog<-is.empty(as.character(a))
-aa<-recode(as.character(alog),'FALSE'="1", .default = "", .missing = NULL) #"recode "Yes" responses
-b<-x[,j]; head(b)
-blog<-is.empty(as.character(b))
-bb<-recode(as.character(blog),'FALSE' = "2", .default = "", .missing = NULL) #recode "No" responses
-
-df<-data.frame(aa,bb); head(df)
-r<-unite(df,paste(c(q)),1:2, sep="")
-
-QuesID.19<-data.frame(factor(r[,1]))
-names(QuesID.19)<-q; 
-levels(QuesID.19[,1])<-c("missing","Yes","No")
-summary(QuesID.19)
-
-mydata<-cbind(mydata,QuesID.19)
-
-rm(a,b, df,aa,bb,r,alog,blog,i,j,q)
 
 ### Question 20 (QID108) ###
 ### XLS Cols: AJ-AK  Levels: Yes, No (in this order)  VarIDs: 36-37
-q<-"QuesID.20"
-a<-x[,36]; head(a)
-# create logical object where nonempty values return FALSE & signify response = "No"
-b<-is.empty(as.character(x[,37])); head(b)
-bb<-recode(as.character(b),`FALSE` = "No", .default = "")
-df<-data.frame(a,bb); head(df)
-r<-unite(df,"resp",1:2, sep="")
-rdf<-data.frame(factor(r[,1]))
-names(rdf)<-q; summary(rdf[,1])
-levels(rdf[,1])<-c("missing","No","Yes"); summary(rdf[,1])
-QuesID.20<-rdf
-head(QuesID.20)
-rm(df,bb,r,rdf)
+mydata<-yesno(x,"QuesID.20", 36,37)
 
 
 ### QuesID = 21 (QID109) ###
 # this question has 5 possible responses + open-ended text = 6 responses in total
-# Add the returned values to the data frame "unitedQs" each time.
+# Add the returned values to the data frame "mydata" each time.
 q<-"QuesID.21"
 cols<-c(38:43)
-# create logical object where nonempty values return FALSE & signify response equals the 
-    # appropriate value OR figure out how to recode the responses at the end
-a<-as.character(x[,cols[1]]); head(a)
-a<-is.empty(a); head(a)
+source("impFactor.R")
 
-b<-as.character(x[,cols[2]]) 
-b<-is.empty(b); head(b)
+df<-mydata[,1]
+  for (i in cols)
+    df<-data.frame(df,impFactor(x, scoring,i))
+names(df)<-c("rowID", "Disagree", "Move", "CC-move", "CC-stay", "Stay","BetterTheme")
+r<-unite(df,"QuesID.21",2:6, sep="")
 
-df<-data.frame(a,bb); head(df)
-r<-unite(df,"resp",1:2, sep="")
-rdf<-data.frame(factor(r[,1]))
-names(rdf)<-q; summary(rdf[,1])
-levels(rdf[,1])<-c("missing","No","Yes"); summary(rdf[,1])
-QuesID.20<-rdf
-head(QuesID.20)
-rm(df,bb,r,rdf)
+rdf<-data.frame(factor(r[,"QuesID.21"])) # trash
+names(rdf)<-q; 
+summary(rdf[,1])
+
+mylevels<-c("missing")
+  for (i in cols)
+    mylevels<-c(mylevels,paste(scoring[scoring$VarID==i,"label"]))
+levels(rdf[,1])<-c(mylevels[1:length(cols)]); summary(rdf[,1])
+QuesID.21<-rdf
+
+QuesID.21.Comments<-data.frame(x[,cols[6]], stringsAsFactors = FALSE)
+names(QuesID.21.Comments)<-paste(q,"Comments", sep=".")
+mydata<-cbind(mydata, rdf, QuesID.21.Comments)
+
+rm(q,cols,df,r,rdf)
+
+### QuesID = 22 (QID007) ###
+### XLS Cols: AR-AX  Levels: "No process", "Inconsistent", "Planned", "Exists-inadequate", "Exists-adequate", "Recurring", "Comments"
+### VarIDs: 44-50
+
+# Notes: should be able to turn Question 21 into a function that can be used for a variety of multiple choice questions
+
