@@ -1,0 +1,16 @@
+rowID,ID,DataElem,Action,Action detail,newID,correctionCode,Note
+74,NA,Debris Flow Hazard Zone,replace NA,ID = 162,162,,
+75,NA,Public Safety Response Areas,replace NA,ID = 50,50,,
+76,NA,Evacuation Routes,replace NA,ID = 198,198,,
+77,NA,Landslide Zones,replace NA,ID = 166,166,,
+78,NA,Taxlots,replace NA,ID = 3,3,,
+79,NA,Road centerlines,replace NA,ID = 94,94,,
+80,NA,Oregon Wetlands Cover,,,,,should have been added to the Framework db
+81,NA,Emergency Service Zones,replace NA,ID = 196,196,,
+82,NA,Wildlife Habitats,replace NA,ID = 146,146,,attribute of existing veg (ID = 146)
+83,NA,State Police Operations,replace NA,ID = 224,224,,
+84,NA,Nearshore and Estuarine Bathymetry,replace NA,ID = 122,122,,ID code from Elevation: Bathymetry
+85,NA,Wildlife Species Habitat Suitability maps,replace NA,ID = 149,149,,
+86,NA,Emergency Facilities,replace NA,ID = 222,222,,
+87,NA,Anadromous Fish Abundance,replace NA,ID = 140,140,,
+88,NA,Land Use,replace NA,ID = 158,158,"y[88,""ID""]<-158",
