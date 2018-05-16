@@ -40,7 +40,7 @@ setwd(mywd)
 scores<-paste(mywd,"/CSV/Scoring.csv", sep="")
 
 # Read the CSV file (Survey Monkey provides a CSV in its downloads)
-x<-read.csv(c(myfile),header=F, sep=",", skip = 3)
+surveyData<-read.csv(c(myfile),header=F, sep=",", skip = 3)
 scoring<-read.csv(c(scores), header=T, sep=",", nrows = 267)
 
 # Read the exported Framework MASTER from Framework database

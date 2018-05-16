@@ -20,10 +20,9 @@
 
 missingIDs<-function(surveyData, correctionsData) {
   a<-read.csv(correctionsData, header = TRUE, sep = ",", stringsAsFactors = TRUE)
-  # corrections<-a[,c("rowID","DataElem","newID")]
   corrections<-a[,c("DataElem","newID")]
   for(i in corrections$DataElem) {
-    # newdata<-xtest2[ which(xtest2$V10=='Debris Flow Hazard Zone'), 10:11]
+    # xtest2[ which(xtest2$V10==i), 11]<-testcors[ which(testcors$DataElem==i),"newID"]
     surveyData[ which(surveyData$V10==i), 11]<-corrections[ which(corrections$DataElem==i),"newID"] # need to set up a search for "i" in surveyData
   }
   return(surveyData) # the results aren't being saved
