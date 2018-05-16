@@ -58,6 +58,7 @@ observed<-as.numeric(with(surveyDataThm, table(Theme)))
 retrate<-observed[,2]/expected[,2]
 diff<-expected-observed
 tally<-cbind(observed,expected,diff,retrate)
+write.table(tally,"/Users/tkb/Work/GEO/fdia-mac/CSV/tally.csv",sep = ",")
 
 # Create bar charts showing observed and expected
 tallyplt<-spineplot(tally[,c(1,3)],

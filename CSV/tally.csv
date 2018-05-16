@@ -1,0 +1,17 @@
+"observed","expected","diff","retrate"
+"Admin Bnds",4,91,87,0.043956043956044
+"Bioscience",12,18,6,0.666666666666667
+"Cadastral",1,11,10,0.0909090909090909
+"Climate",21,21,0,1
+"Coastal and Marine",0,2,2,0
+"Elevation",8,6,-2,1.33333333333333
+"Geodetic Control",0,2,2,0
+"Geoscience",3,4,1,0.75
+"Hazards",5,18,13,0.277777777777778
+"Hydrography",7,7,0,1
+"Imagery",2,3,1,0.666666666666667
+"LULC",2,10,8,0.2
+"Preparedness",19,23,4,0.826086956521739
+"Reference",0,10,10,0
+"Transportation",1,17,16,0.0588235294117647
+"Utilities",2,18,16,0.111111111111111
