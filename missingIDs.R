@@ -11,11 +11,12 @@ missingIDs<-function(surveyData, correctionsData) {
  # corrections<-correctionsData[,c("rowID","DataElem","newID")]
   corrections<-correctionsData[,c("rowID","newID")]
   for(i in corrections$rowID) {
-    for(j in 1:length(corrections$rowID)){
-      surveyData[i,"X1"]<-corrections[j,"newID"]
-      
-      return(surveyData)
-      }
-    return(surveyData)
+    print(i)
+    # for(j in 1:nrow(corrections)){
+    #   surveyData[i,"X1"]<-corrections[j,"newID"]
+    #   
+    #   return(surveyData)
+    #   }
+    # return(surveyData)
     }
 }
