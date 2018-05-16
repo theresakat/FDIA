@@ -1,4 +1,4 @@
-# missingIDs-2.R
+# missingIDs-3.R
 # Function to input FIT data element numeric IDs where missing from survey responses
 # 
 # Created: 5/16/2018
@@ -20,12 +20,11 @@
 
 missingIDs<-function(surveyData, correctionsData) {
   a<-read.csv(correctionsData, header = TRUE, sep = ",", stringsAsFactors = TRUE)
-  corrections<-a[,c("rowID","DataElem","newID")]
-  # corrections<-correctionsData[,c("rowID","newID")]
-  for(i in 1:nrow(corrections)) {
-    print(corrections[i,"rowID"])
-    print(corrections[i,"newID"])
-    surveyData[i,10]<-corrections[i,"newID"]
+  # corrections<-a[,c("rowID","DataElem","newID")]
+  corrections<-a[,c("DataElem","newID")]
+  for(i in corrections$DataElem) {
+    # newdata<-xtest2[ which(xtest2$V10=='Debris Flow Hazard Zone'), 10:11]
+    surveyData[ which(surveyData$V10==i), 11]<-corrections[ which(corrections$DataElem==i),"newID"] # need to set up a search for "i" in surveyData
   }
-  return(surveyData)
+  return(surveyData) # the results aren't being saved
 }
