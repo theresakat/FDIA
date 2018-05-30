@@ -33,7 +33,8 @@ select<-which(is.na(y$ID))
 # write.table(y[select,c("ID","DataElem")], outfile, sep = ",", row.name=FALSE)
 
 # Correct the known errors using corrections LUT called "correctionsData" (the exported errors from above with the corrections added)
-correctionsData<-"/Users/tkb/Work/GEO/fdia-mac/CSV/corrections.csv"
+# correctionsData<-"/Users/tkb/Work/GEO/fdia-mac/CSV/corrections.csv"
+correctionsData<-"C:\\temp\\FDIA\\CSV\\corrections.csv"
 a<-read.csv(correctionsData, header = TRUE, sep = ",", stringsAsFactors = TRUE)
 corrections<-a[,c("DataElem","newID")]
 for(i in corrections$DataElem) {
@@ -55,10 +56,10 @@ observed<-as.numeric(with(surveyDataThm, table(Theme)))
 # observed<-data.frame(with(surveyDataThm, table(Theme)))
 
 # Calculate the percentage of surveys returned (observed/expected)
-retrate<-observed[,2]/expected[,2]
+retrate<-observed/expected
 diff<-expected-observed
 tally<-cbind(observed,expected,diff,retrate)
-write.table(tally,"/Users/tkb/Work/GEO/fdia-mac/CSV/tally.csv",sep = ",")
+# write.table(tally,"/Users/tkb/Work/GEO/fdia-mac/CSV/tally.csv",sep = ",")
 
 # Create bar charts showing observed and expected
 tallyplt<-spineplot(tally[,c(1,3)],
@@ -67,8 +68,22 @@ tallyplt<-spineplot(tally[,c(1,3)],
           yaxlabels = c("Observed","Expected"),
           off = 10,
           col = c("steelblue3","bisque"))
+
+legend("top", 
+       legend = c("Observed", "Expected"), 
+       ncol=2, 
+       cex = 0.8, 
+       col=c("steelblue3","bisque"), 
+       bty = "n", 
+       lty=1, 
+       lwd=2)
+
+tallydf<-as.data.frame(tally)
 text(tallyplt,tallydf$retrate+2,labels=as.character(tallydf$retrate))
 
 library(ggplot2)
 
-tallyplt<-ggplot() + geom_bar(aes(y = observed),data=tallydf, stat = "identity");tallyplt
+tallyplt<-ggplot() + geom_bar(aes(y = observed),data=tallydf, 
+                              stat = "identity")
+
+tallyplt

@@ -26,12 +26,12 @@ library(rapportools)
 # library(xlsx)
 
 # Set working directory and path to input CSV on Windows laptop
-# mywd<-"C:\\temp\\FDIA"
-# setwd(mywd)
-# myfile<-paste(mywd,"\\CSV\\Framework Data Inventory  Assessment v. 1.0.csv", 
-#               sep = "")
-# # myfile<-paste(mywd,"\\CSV\\data_num.csv", sep = "")
-# scores<-paste(mywd,"\\CSV\\Scoring.csv", sep="")
+mywd<-"C:\\temp\\FDIA"
+setwd(mywd)
+myfile<-paste(mywd,"\\CSV\\Framework Data Inventory  Assessment v. 1.0.csv",
+              sep = "")
+# myfile<-paste(mywd,"\\CSV\\data_num.csv", sep = "")
+scores<-paste(mywd,"\\CSV\\Scoring.csv", sep="")
 
 # Set working directory and path to input CSV on Mac
 mywd<-"/Users/tkb/Work/GEO/fdia-mac"
@@ -44,7 +44,7 @@ surveyData<-read.csv(c(myfile),header=F, sep=",", skip = 3)
 scoring<-read.csv(c(scores), header=T, sep=",", nrows = 267)
 
 # Read the exported Framework MASTER from Framework database
-tblfwname<-paste("","CSV", "1_tblFrameworkData_MASTER.csv", sep = "/")  # Mac
-# tblfwname<-paste("CSV", "1_tblFrameworkData_MASTER.csv", sep = "\\") # Windows
+# tblfwname<-paste("","CSV", "1_tblFrameworkData_MASTER.csv", sep = "/")  # Mac
+tblfwname<-paste("CSV", "1_tblFrameworkData_MASTER.csv", sep = "\\") # Windows
 myfile<-paste(mywd,tblfwname, sep = "")
 dat<-read.csv(c(myfile),header=T, sep = ",")
