@@ -4,37 +4,41 @@
 # 
 # Required files:
 #   dat   contains the contents of the 1_tblFrameworkData_MASTER.csv (load using 1_load_FDIA.R)
-#   x     contains the raw imported survey data
+#   surveyData     contains the raw imported survey data
 
 # Workflow
-#   import data to R
-#   identify and export mismatched records
-#   correct data element names
-#   add data element numeric IDs where missing
-#   apply this script
+#   1. import data to R using load script
+#   2. set up empty data frame for identifying and exporting mismatched records in the data
+#   3. correct data element names
+#   4. add data element numeric IDs where missing
+#   5. construct scoresheet tallies
+
+### 2. Identify and export mismatched records between the Framework MASTER table and survey responses###
 
 # Create empty data frame
 de <- data.frame(ID=c(1:nrow(surveyData)))
 
-# Add survey responses for data element names and IDs to the data frame 
+# Add survey responses for data element names and IDs to the empty data frame 
 de<-data.frame(surveyData[,10:11])
 names(de)<-c("DataElem","ID")
 
-# Merge the survey responses and Framework theme info
+# Merge the survey responses and Framework MASTER table to match responses with themes
 y<-merge(de,dat, all.x=TRUE)
 
-# Create a selection vector to identify the unmatched survey responses
+# Create a selection vector to identify the survey responses that don't match the Framework MASTER table
 select<-which(is.na(y$ID))
 
-# Export the results to CSV to use to perform corrections. Use Excel to create the error to correction LUT
-# mywd<-"C:\\temp\\FDIA"
-# setwd(mywd)
-# outfile<-paste(mywd,"\\CSV\\errors.csv", sep="")
-# write.table(y[select,c("ID","DataElem")], outfile, sep = ",", row.name=FALSE)
+### 3 & 4. Correct survey response data element names and IDs ###
 
-# Correct the known errors using corrections LUT called "correctionsData" (the exported errors from above with the corrections added)
+# Export the results to CSV to use to perform corrections. Use Excel to create the error to correction LUT
+mywd<-"C:\\temp\\FDIA"
+setwd(mywd)
+outfile<-paste(mywd,"\\CSV\\errors_20180604.csv", sep="")
+write.table(y[select,c("ID","DataElem")], outfile, sep = ",", row.name=FALSE)
+
+# Manually correct the known errors using corrections LUT called "correctionsData" (the exported errors from above with the corrections added)
 # correctionsData<-"/Users/tkb/Work/GEO/fdia-mac/CSV/corrections.csv"
-correctionsData<-"C:\\temp\\FDIA\\CSV\\corrections.csv"
+correctionsData<-"C:\\temp\\FDIA\\CSV\\corrections_20180604.csv"
 a<-read.csv(correctionsData, header = TRUE, sep = ",", stringsAsFactors = TRUE)
 corrections<-a[,c("DataElem","newID")]
 for(i in corrections$DataElem) {
@@ -43,7 +47,7 @@ for(i in corrections$DataElem) {
 # Return the data element IDs = NA
 surveyData[which(is.na(surveyData$V11)),10:11]
 
-# Construct the Scoresheet tallies:
+### 5. CONSTRUCT THE SCORESHEET TALLIES ###
 
 # Inner join themes with the corrected survey data by ID
 surveyDataThm <- merge(surveyData, dat, by.x = "V11", by.y = "ID") 

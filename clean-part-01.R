@@ -5,8 +5,15 @@
 
 # Step 1. Source 1_load_FDIA.R
 source("1_load_FDIA.R")
+source("yesno.R")
 
+x<-surveyData
 mydata<- data.frame(rowID=c(1:length(x[,1])))
+mydata<-cbind(mydata,x[,c("V10","V11")])
+names(mydata)[2:3] <- c("DataElem", "ID")
+
+outnames<-c("13_Keep","14_NameIssue","16_Active","17_StateExtent","18_BroadUsers",
+            "19_FDE","20_2FDE","21_RightTheme","21_RigthThemeComments")
 
 ### Question 13 (QID 112) (data_num version) levels = "No", "Yes" ###
 q<-"QuesID.13"
@@ -59,6 +66,8 @@ mydata<-cbind(mydata,QuesID.14)
 rm(df,aa,bb,r,q,a,b, alog,blog)
 
 ### Question 16 (QID006) Levels: Active, Static, Other  VarIDs: 27:29 ###
+### NOT RUNNING CORRECTLY
+### 
 q<-"QuesID.16"
 i<-27
 j<-28
@@ -145,6 +154,10 @@ names(QuesID.21.Comments)<-paste(q,"Comments", sep=".")
 mydata<-cbind(mydata, rdf, QuesID.21.Comments)
 
 rm(q,cols,df,r,rdf)
+
+comment(mydata)<-names(mydata)
+mydata<-cbind(mydata,surveyDataThm["Theme"])
+names(mydata)[5:13]<-outnames
 
 ### QuesID = 22 (QID007) ###
 ### XLS Cols: AR-AX  Levels: "No process", "Inconsistent", "Planned", "Exists-inadequate", "Exists-adequate", "Recurring", "Comments"
