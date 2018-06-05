@@ -150,7 +150,7 @@ rm(q,cols,df,r,rdf)
 
 
 
-### MERGE SURVEY DATA WITH THEMES & OTHER IDENTIFYING INFO ##
+### MERGE UNITED SURVEY DATA WITH THEMES & OTHER IDENTIFYING INFO ##
 
 selcols<-c("V11", "V10") # ID and data element names
 sel<-select(x, selcols)
@@ -160,3 +160,5 @@ thms<-c("V11","V10","Theme")
 tmydata<-merge(tmydata,surveyDataThm[,thms], by=c("V11","V10"), all.x = TRUE)
 names(mydata)[5:13]<-outnames
 
+### Select some records from the merged survey data
+as.matrix(tmydata[tmydata$QuesID.13=="No","V10"])
