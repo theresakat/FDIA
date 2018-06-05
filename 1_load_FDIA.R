@@ -16,12 +16,12 @@
 #source("C:\\temp\\BLM Leks to Landscapes Project_287315\\Analysis\\SpatialScaling_task2\\Friedmans\\code\\func.r")
 
 library(tidyr)
-#library(stringr)
+library(stringr)
 library(plyr)
 library(dplyr)
-#library(reshape2)
+library(reshape2)
 library(ggplot2)
-# library(rlang)
+library(rlang)
 library(rapportools)
 # library(xlsx)
 

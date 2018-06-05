@@ -12,8 +12,9 @@ mydata<- data.frame(rowID=c(1:length(x[,1])))
 mydata<-cbind(mydata,x[,c("V10","V11")])
 names(mydata)[2:3] <- c("DataElem", "ID")
 
-outnames<-c("13_Keep","14_NameIssue","16_Active","17_StateExtent","18_BroadUsers",
-            "19_FDE","20_2FDE","21_RightTheme","21_RigthThemeComments")
+# Add names to the outlines object as code is developed
+outnames<-c("13_Keep","14_NameIssue","16_Active","17_StatExtent","18_BrdUsers",
+            "19_FDE","20_2FDE","21_RtThm","21_RtThmComments")
 
 ### Question 13 (QID 112) (data_num version) levels = "No", "Yes" ###
 q<-"QuesID.13"
@@ -69,41 +70,26 @@ rm(df,aa,bb,r,q,a,b, alog,blog)
 ### NOT RUNNING CORRECTLY
 ### 
 q<-"QuesID.16"
-i<-27
-j<-28
-k<-29
-a<-factor(x[,i], 
-          levels = c(paste(scoring[scoring$VarID==i,"labelCode"])), 
-          labels = c(paste(scoring[scoring$VarID==i,"label"]))); head(a); str(a)
-# create logical object where nonempty values return FALSE & signify open-ended text
-alog<-is.empty(as.character(a))
-# recode logical using iterator rowID and corresponding labelCode (e.g., for VarID = 27: labelCode=1 and label="Active")
-aa<-recode(as.character(alog), 'FALSE' = c(paste(scoring[scoring$VarID==i,"labelCode"])), .default = "", .missing = NULL) 
+i<-27  # Active
+j<-28  # Static
+k<-29  # Other
 
-b<-factor(x[,j], 
-          levels = c(paste(scoring[scoring$VarID==j,"labelCode"])), 
-          labels = c(paste(scoring[scoring$VarID==j,"label"]))); head(b); str(b)
-blog<-is.empty(as.character(b))
-bb<-recode(as.character(blog), 'FALSE' = c(paste(scoring[scoring$VarID==j,"labelCode"])), .default = "", .missing = NULL)
+a<-factor(x[,i])
+b<-factor(x[,j])
+c<-as.character(x[,k])
+clog<-is.empty(c)
+cc<-recode(as.character(clog), 'FALSE' = c(paste(scoring[scoring$VarID==k,"label"])), .default = "", .missing = NULL)
 
-c<-factor(x[,k], 
-          levels = c(paste(scoring[scoring$VarID==k,"labelCode"])), 
-          labels = c(paste(scoring[scoring$VarID==k,"label"]))); head(c); str(c)
-clog<-is.empty(as.character(c))
-cc<-recode(as.character(clog), 'FALSE' = c(paste(scoring[scoring$VarID==k,"labelCode"])), .default = "", .missing = NULL)
+df<-cbind(x[,i:j],cc)
+head(df)
 
-df<-data.frame(aa,bb,cc); df[1:10,]
-r<-unite(df,"QuesID.16",1:3, sep="")
+str(df)
+r<-unite(df, "QuesID.16", 1:3, sep="")
+QuesID.16<-factor(r[,1])
+levels(QuesID.16)[1]<-"missing"
+str(QuesID.16)
+summary(QuesID.16)
 
-QuesID.16<-data.frame(factor(r[,1]))
-names(QuesID.16)<-q
-# pull the levels from the Scoring table
-mylevels<-c("missing",
-            paste(scoring[scoring$VarID==i,"label"]),
-            paste(scoring[scoring$VarID==j,"label"]),
-            paste(scoring[scoring$VarID==k,"label"]))
-mylevels
-levels(QuesID.16[,1])<-c(mylevels); summary(QuesID.16[,1])
 mydata<-cbind(mydata,QuesID.16)
 
 rm(a,b,c,df,aa,bb,cc,r,alog,blog,clog,i,j,k,q)
@@ -155,13 +141,22 @@ mydata<-cbind(mydata, rdf, QuesID.21.Comments)
 
 rm(q,cols,df,r,rdf)
 
-comment(mydata)<-names(mydata)
-mydata<-cbind(mydata,surveyDataThm["Theme"])
-names(mydata)[5:13]<-outnames
 
 ### QuesID = 22 (QID007) ###
 ### XLS Cols: AR-AX  Levels: "No process", "Inconsistent", "Planned", "Exists-inadequate", "Exists-adequate", "Recurring", "Comments"
 ### VarIDs: 44-50
 
 # Notes: should be able to turn Question 21 into a function that can be used for a variety of multiple choice questions
+
+
+
+### MERGE SURVEY DATA WITH THEMES & OTHER IDENTIFYING INFO ##
+
+selcols<-c("V11", "V10") # ID and data element names
+sel<-select(x, selcols)
+# names(sel)[1:2]<-c("ID","DataElem")
+tmydata<-cbind(mydata,sel)
+thms<-c("V11","V10","Theme")
+tmydata<-merge(tmydata,surveyDataThm[,thms], by=c("V11","V10"), all.x = TRUE)
+names(mydata)[5:13]<-outnames
 
