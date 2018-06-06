@@ -1,7 +1,18 @@
 # clean-02-UniteSurveyData.R
 
+# PUrpose
 # The purpose of this script is to merge response columns into 
 # single columns.
+
+# Prerequisites
+# 1_load_FDIA.R     script that loads libraries, raw survey data, Framework MASTER table, etc.
+# yesno.R           function developed to handle questions where 'Yes' responses occur in the first column
+#                   and 'No' responses occur in the second column for a question
+# surveyData        raw survey data loaded using `1_load_FDIA.R` Be aware that columns are ordered "V1", "V2",...
+# surveyDataThm     corrected surveyData, developed using `cleanSurveyData.R`. Can be used as alternative to
+#                   raw surveyData data frame. Be aware that columns are ordered "V11", "V1", "V2",... This re-
+#                   ordering resulted from the merging of the raw data with Framework MASTER table            
+
 
 # Step 1. Source 1_load_FDIA.R
 source("1_load_FDIA.R")
@@ -67,8 +78,6 @@ mydata<-cbind(mydata,QuesID.14)
 rm(df,aa,bb,r,q,a,b, alog,blog)
 
 ### Question 16 (QID006) Levels: Active, Static, Other  VarIDs: 27:29 ###
-### NOT RUNNING CORRECTLY
-### 
 q<-"QuesID.16"
 i<-27  # Active
 j<-28  # Static

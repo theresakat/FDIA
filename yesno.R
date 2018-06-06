@@ -7,19 +7,20 @@
 # numeric data exported from Survey Monkey. 
 #
 # Instructions:
-# OUTPUT function to the data frame that is collecting the imported and cleaned data, in this case, "mydata", e.g.:
-#   output<-yesno(x,quesLabel, startVar, endVar) becomes
-#   mydata<-yesno(x,"QuesID.17", 30, 31)
+#   To preserve the function's output, assign the output to the data frame that will be used to collect
+#   the imported and cleaned data. In this case, "mydata", e.g.:
+#       output <- yesno(x,quesLabel, startVar, endVar) becomes
+#       mydata <- yesno(x,"QuesID.17", 30, 31)
 #
-# x = the raw data loaded using 1_load_FDIA.R
-# mydata = is a data frame created in the clean-part-01.R to hold imported data. Precursor to 
-#           yesno.R
+# Prerequisites
+#   x         raw data loaded using 1_load_FDIA.R
+#   mydata    data frame created in the clean-part-01.R to hold imported data. Precursor to 
+#             function "yesno.R"
 #
 # Background. 
 # I used Question 17 (QID105) Levels: Yes, No (in this order)  VarIDs: 30-31 to create this function.
 #
-#
-#
+
 
 yesno<-function(x, quesLabel, startVar, endVar) {
   q<-paste(quesLabel)
