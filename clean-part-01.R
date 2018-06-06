@@ -1,4 +1,4 @@
-# clean-part-01.R
+# clean-02-UniteSurveyData.R
 
 # The purpose of this script is to merge response columns into 
 # single columns.
@@ -9,8 +9,8 @@ source("yesno.R")
 
 x<-surveyData
 mydata<- data.frame(rowID=c(1:length(x[,1])))
-mydata<-cbind(mydata,x[,c("V10","V11")])
-names(mydata)[2:3] <- c("DataElem", "ID")
+# mydata<-cbind(mydata,x[,c("V10","V11")])
+# names(mydata)[2:3] <- c("DataElem", "ID")
 
 # Add names to the outlines object as code is developed
 outnames<-c("13_Keep","14_NameIssue","16_Active","17_StatExtent","18_BrdUsers",
@@ -155,10 +155,10 @@ rm(q,cols,df,r,rdf)
 selcols<-c("V11", "V10") # ID and data element names
 sel<-select(x, selcols)
 # names(sel)[1:2]<-c("ID","DataElem")
-tmydata<-cbind(mydata,sel)
+mydata<-cbind(mydata,sel)
 thms<-c("V11","V10","Theme")
-tmydata<-merge(tmydata,surveyDataThm[,thms], by=c("V11","V10"), all.x = TRUE)
-names(mydata)[5:13]<-outnames
+mydata<-merge(mydata,surveyDataThm[,thms], by=c("V11","V10"), all.x = TRUE)
+# names(mydata)[5:13]<-outnames
 
 ### Select some records from the merged survey data
 as.matrix(tmydata[tmydata$QuesID.13=="No","V10"])
