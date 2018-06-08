@@ -13,8 +13,13 @@
 #                   raw surveyData data frame. Be aware that columns are ordered "V11", "V1", "V2",... This re-
 #                   ordering resulted from the merging of the raw data with Framework MASTER table            
 
+# Futuer enhancements
+#   1. update manipulation of factors for questions 13, 14, and 17-21 to be more efficient
+#   
+#   
+#################################  
 
-# Step 1. Source 1_load_FDIA.R
+### Step 1. Source 1_load_FDIA.R
 source("1_load_FDIA.R")
 source("yesno.R")
 
@@ -78,14 +83,17 @@ mydata<-cbind(mydata,QuesID.14)
 rm(df,aa,bb,r,q,a,b, alog,blog)
 
 ### Question 16 (QID006) Levels: Active, Static, Other  VarIDs: 27:29 ###
+### Note: this section was updated 6/4/2018. My understanding of factor 
+### manipulation was better than when I started this script. IOW, the code
+### for Question 16 is more efficient than for Ques. 13, 14, and 17-21.
 q<-"QuesID.16"
 i<-27  # Active
 j<-28  # Static
-k<-29  # Other
+k<-29  # Other (includes comments)
 
 a<-factor(x[,i])
 b<-factor(x[,j])
-c<-as.character(x[,k])
+c<-as.character(x[,k])  #import as character to recode the comments contained in this field to the label/level "Other"
 clog<-is.empty(c)
 cc<-recode(as.character(clog), 'FALSE' = c(paste(scoring[scoring$VarID==k,"label"])), .default = "", .missing = NULL)
 
@@ -95,7 +103,7 @@ head(df)
 str(df)
 r<-unite(df, "QuesID.16", 1:3, sep="")
 QuesID.16<-factor(r[,1])
-levels(QuesID.16)[1]<-"missing"
+levels(QuesID.16)[1]<-"missing" #this is the key to simplifying the recoding of factors.
 str(QuesID.16)
 summary(QuesID.16)
 
@@ -125,38 +133,56 @@ mydata<-yesno(x,"QuesID.20", 36,37)
 # this question has 5 possible responses + open-ended text = 6 responses in total
 # Add the returned values to the data frame "mydata" each time.
 q<-"QuesID.21"
-cols<-c(38:43)
+cols<-c(38:43) 
 source("impFactor.R")
+source("impLongFactor.R")
 
-df<-mydata[,1]
-  for (i in cols)
-    df<-data.frame(df,impFactor(x, scoring,i))
-names(df)<-c("rowID", "Disagree", "Move", "CC-move", "CC-stay", "Stay","BetterTheme")
-r<-unite(df,"QuesID.21",2:6, sep="")
+myoutdata<-myfunc(mydata, x,"TestID.21", 38,43, mynames, scoring)
+mydata<-cbind(mydata, myoutdata)
 
-rdf<-data.frame(factor(r[,"QuesID.21"])) # trash
-names(rdf)<-q; 
-summary(rdf[,1])
-
-mylevels<-c("missing")
-  for (i in cols)
-    mylevels<-c(mylevels,paste(scoring[scoring$VarID==i,"label"]))
-levels(rdf[,1])<-c(mylevels[1:length(cols)]); summary(rdf[,1])
-QuesID.21<-rdf
-
-QuesID.21.Comments<-data.frame(x[,cols[6]], stringsAsFactors = FALSE)
-names(QuesID.21.Comments)<-paste(q,"Comments", sep=".")
-mydata<-cbind(mydata, rdf, QuesID.21.Comments)
-
-rm(q,cols,df,r,rdf)
+rm(myoutdata)
+# 
+# df<-mydata[,1]
+#   for (i in cols[-length(cols)])  # columns up to but not including the "Preferred Theme" comment field
+#     df<-data.frame(df,impFactor(x, scoring,i))
+# names(df)<-c("rowID", "Disagree", "Move", "CC-move", "CC-stay", "Stay")
+# r<-unite(df,"QuesID.21",2:length(df), sep="")
+# rf<-factor(r$QuesID.21)
+# levels(rf)<-c("missing",names(df)[-1])
+# 
+# # Alternative method for generating and assigning factor levels
+# # mylevels<-c("missing")
+# #   for (i in cols)
+# #     mylevels<-c(mylevels,paste(scoring[scoring$VarID==i,"label"])) # these aren't the same as names(df)
+# # levels(rf)<-c(mylevels)
+# 
+# QuesID.21<-rf
+# 
+# # Import comments to mydata
+# QuesID.21.Comments<-data.frame(x[,cols[length(cols)]], stringsAsFactors = FALSE)
+# names(QuesID.21.Comments)<-paste(q,"Comments", sep=".")
+# mydata<-cbind(mydata, QuesID.21, QuesID.21.Comments)
+# 
+# rm(q,cols,df,r,rf)
 
 
 ### QuesID = 22 (QID007) ###
-### XLS Cols: AR-AX  Levels: "No process", "Inconsistent", "Planned", "Exists-inadequate", "Exists-adequate", "Recurring", "Comments"
-### VarIDs: 44-50
+### XLS Cols: AR-AX  Levels: "No process", "Inconsistent", "Planned", "Exists-inadequate", 
+###                          "Exists-adequate", "Recurring", "Comments"
+### VarIDs: 44-49; comments in VarID 50 (V50)
 
 # Notes: should be able to turn Question 21 into a function that can be used for a variety of multiple choice questions
+q<-"QuesID.22"
+cols<-c(44:50)
+source("impFactor.R")
 
+df<-mydata[,1]
+for (i in cols)
+  df<-data.frame(df,impFactor(x, scoring,i))
+
+names(df)<-c("rowID", "No process", "Inconsistent", "Planned", "Exists-inadequate", 
+             "Exists-adequate", "Recurring")
+r<-unite(df,"QuesID.22",2:length(df), sep="")
 
 
 ### MERGE UNITED SURVEY DATA WITH THEMES & OTHER IDENTIFYING INFO ##
@@ -165,7 +191,7 @@ selcols<-c("V11", "V10") # ID and data element names
 sel<-select(x, selcols)
 # names(sel)[1:2]<-c("ID","DataElem")
 mydata<-cbind(mydata,sel)
-thms<-c("V11","V10","Theme")
+thms<-c("V11","V10","Theme", "")
 mydata<-merge(mydata,surveyDataThm[,thms], by=c("V11","V10"), all.x = TRUE)
 # names(mydata)[5:13]<-outnames
 

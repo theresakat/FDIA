@@ -259,6 +259,4 @@
 280,16,"Coastal and Marine","shorezone",6,,,,,,,,,,,,,,,,,,,,,,,,1/1/2015 0:00:00,,,,,,0,0,99
 281,10,"Bioscience","Coastal and Marine Ecological Classifcation (CMECS)",6,,,,,,,,,,,,,,,,,,,,,,,,1/1/2015 0:00:00,,,,,,0,0,99
 282,8,"Preparedness","shoreline access",6,,,,,,,,,,,,,,,,,,,,,,,,1/1/2015 0:00:00,,,,,,0,0,99
-283,,"Bioscience","Oregon wetlands cover",4,,6/6/2018 0:00:00,,,,,,,,,"Created subsequent to Oregon Wetlands Standard but not entered in Framework database until 6/6/2018",,,,,,,,,,,,,,,0,,0,,0,0,0
-284,,"Imagery","1-foot aerial imagery",6,,,,,,,,,,,"Statewide 1-foot imagery ",,,,,,,,,,,,,7/1/2017 0:00:00,,0,,0,,0,0,0
 113,6,"Transportation","reference points (FTRP)",6,,,"3",3,"0","1:24k and better","vector","node","ODOT","ODOT","These are ""to"" and ""from"" points in the road network based on old link node topology; provide ""direction"" to a line segment.  Today's model uses a geometry topology instead. FTRP still requires this, but no road authorities maintain it.",,"ODOT no longer maintains this because it is not needed.",,"This will be created as part of OTN.  Currently data is stored as geometry-based topology.  This element needs more discussion per C. Brady.","L",,,,,,,12/31/2014 0:00:00,,,,,,,0,0,99
