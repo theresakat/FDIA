@@ -136,53 +136,22 @@ q<-"QuesID.21"
 cols<-c(38:43) 
 source("impFactor.R")
 source("impLongFactor.R")
+mynames<-c()
 
 myoutdata<-myfunc(mydata, x,"TestID.21", 38,43, mynames, scoring)
 mydata<-cbind(mydata, myoutdata)
 
 rm(myoutdata)
-# 
-# df<-mydata[,1]
-#   for (i in cols[-length(cols)])  # columns up to but not including the "Preferred Theme" comment field
-#     df<-data.frame(df,impFactor(x, scoring,i))
-# names(df)<-c("rowID", "Disagree", "Move", "CC-move", "CC-stay", "Stay")
-# r<-unite(df,"QuesID.21",2:length(df), sep="")
-# rf<-factor(r$QuesID.21)
-# levels(rf)<-c("missing",names(df)[-1])
-# 
-# # Alternative method for generating and assigning factor levels
-# # mylevels<-c("missing")
-# #   for (i in cols)
-# #     mylevels<-c(mylevels,paste(scoring[scoring$VarID==i,"label"])) # these aren't the same as names(df)
-# # levels(rf)<-c(mylevels)
-# 
-# QuesID.21<-rf
-# 
-# # Import comments to mydata
-# QuesID.21.Comments<-data.frame(x[,cols[length(cols)]], stringsAsFactors = FALSE)
-# names(QuesID.21.Comments)<-paste(q,"Comments", sep=".")
-# mydata<-cbind(mydata, QuesID.21, QuesID.21.Comments)
-# 
-# rm(q,cols,df,r,rf)
-
 
 ### QuesID = 22 (QID007) ###
 ### XLS Cols: AR-AX  Levels: "No process", "Inconsistent", "Planned", "Exists-inadequate", 
 ###                          "Exists-adequate", "Recurring", "Comments"
 ### VarIDs: 44-49; comments in VarID 50 (V50)
 
-# Notes: should be able to turn Question 21 into a function that can be used for a variety of multiple choice questions
-q<-"QuesID.22"
-cols<-c(44:50)
-source("impFactor.R")
-
-df<-mydata[,1]
-for (i in cols)
-  df<-data.frame(df,impFactor(x, scoring,i))
-
-names(df)<-c("rowID", "No process", "Inconsistent", "Planned", "Exists-inadequate", 
-             "Exists-adequate", "Recurring")
-r<-unite(df,"QuesID.22",2:length(df), sep="")
+mynames<-c("rowID", "No process", "Inconsistent", "Planned", "Exists-inadequate", 
+           "Exists-adequate", "Recurring")
+myoutdata<-myfunc(mydata, x,"QuesID.22", 44,50, mynames, scoring)
+mydata<-cbind(mydata, myoutdata)
 
 
 ### MERGE UNITED SURVEY DATA WITH THEMES & OTHER IDENTIFYING INFO ##

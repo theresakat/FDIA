@@ -7,7 +7,7 @@ impFactor2<- function(x, scoring, var) {
 #### Function to import "Other with comments" fields and to retain only the "Other" 
 ####   code and label. Comments are dropped. ####
 
-impComments<-function(x,scoring,var) {
+impOther<-function(x,scoring,var) {
   a<-as.character(x[,var])
   alog<-is.empty(c)
   aa<-recode(as.character(alog), 
@@ -16,3 +16,6 @@ impComments<-function(x,scoring,var) {
              .missing = NULL)
   return(as.character(aa))
 }
+
+
+# impComments<-functions(x,scoring,var)
