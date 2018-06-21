@@ -1,3 +1,6 @@
+
+## Function to import a factor
+
 impFactor2<- function(x, scoring, var) {
   a<-x[,var]; head(a); str(a)
   return(a)

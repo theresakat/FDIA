@@ -133,12 +133,11 @@ mydata<-yesno(x,"QuesID.20", 36,37)
 # this question has 5 possible responses + open-ended text = 6 responses in total
 # Add the returned values to the data frame "mydata" each time.
 q<-"QuesID.21"
-cols<-c(38:43) 
-source("impFactor.R")
-source("impLongFactor.R")
-mynames<-c()
+# cols<-c(38:43) 
+source("FDIA-functions.R")
+mynames<-c("rowID", "Disagree", "Move", "CC-move","CC-stay","Stay")
 
-myoutdata<-myfunc(mydata, x,"TestID.21", 38,43, mynames, scoring)
+myoutdata<-impLongFactWComm(mydata, x,"QuesID.21", 38,43, mynames, scoring)
 mydata<-cbind(mydata, myoutdata)
 
 rm(myoutdata)
@@ -147,11 +146,38 @@ rm(myoutdata)
 ### XLS Cols: AR-AX  Levels: "No process", "Inconsistent", "Planned", "Exists-inadequate", 
 ###                          "Exists-adequate", "Recurring", "Comments"
 ### VarIDs: 44-49; comments in VarID 50 (V50)
-
+ 
 mynames<-c("rowID", "No process", "Inconsistent", "Planned", "Exists-inadequate", 
            "Exists-adequate", "Recurring")
-myoutdata<-myfunc(mydata, x,"QuesID.22", 44,50, mynames, scoring)
+myoutdata<-impLongFactWComm(mydata, x,"QuesID.22", 44,50, mynames, scoring)
 mydata<-cbind(mydata, myoutdata)
+
+rm(myoutdata)
+
+### QuesID = 26 (QID010) ###
+### XLS Cols: CC-DH  Levels: "No process", "Under development", "Initiated", "Progressing", 
+###                          "Well established", "Fully implemented"
+### VarIDs: 81-86; no comments field
+
+mynames<-c("rowID", "No process", "Under development", "Initiated", "Progressing", 
+           "Well established", "Fully implemented")
+
+myoutdata<-impLongFactor(mydata, x,"QuesID.26", 81,86, mynames, scoring)
+mydata<-cbind(mydata, myoutdata)
+
+
+### QuesID = 27 (QID012) ###
+### XLS Cols: CC-DH  Levels: "No information", "Best available", "1-25%", "25-50%", 
+###                           "50-75%", "75-100%"
+### VarIDs: 87-92; no comments field
+
+mynames<-c("rowID", "No information", "Best available", "1-25%", "25-50%", 
+           "50-75%", "75-100%")
+
+myoutdata<-impLongFactor(mydata, x,"QuesID.27", 87, 92, mynames, scoring)
+mydata<-cbind(mydata, myoutdata)
+
+
 
 
 ### MERGE UNITED SURVEY DATA WITH THEMES & OTHER IDENTIFYING INFO ##
