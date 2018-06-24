@@ -12,6 +12,11 @@
 # 
 # Warning: used in impLongFactWComm and impLongFactor functions
 # 
+# Prerequisites:
+# x         survey data
+# scoring   imported scoring table from Scoring.xlsx
+# var       numeric variable ID called "VarID" in the Scoring.xlsx "Scoring" tab
+# 
 # Note: this function is likely replacable with simple factor functions
 
 impFactor<- function(x, scoring, var) {
@@ -42,7 +47,7 @@ impFactor2<- function(x, scoring, var) {
 
 impOther<-function(x,scoring,var) {
   a<-as.character(x[,var])
-  alog<-is.empty(c)
+  alog<-is.empty(a)
   aa<-recode(as.character(alog), 
              'FALSE' = c(paste(scoring[scoring$VarID==var,"label"])), 
              .default = "", 

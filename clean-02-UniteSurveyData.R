@@ -32,6 +32,13 @@ mydata<- data.frame(rowID=c(1:length(x[,1])))
 outnames<-c("13_Keep","14_NameIssue","16_Active","17_StatExtent","18_BrdUsers",
             "19_FDE","20_2FDE","21_RtThm","21_RtThmComments")
 
+# Response sets (response names)
+nonetofullimplNames<-c("rowID", "None", "Under development", "Initiated", "Progressing", 
+                              "Well established", "Fully implemented")
+fgdcOther<-c("rowID", "FGDC", "other")
+resources<-c("rowID", "Desired", "Planned-no resrcs", "Planned-resrcs avail", "In progress-partial resrcs", 
+              "In progress-full resrcs", "Fully implemented", "NA")
+
 ### Question 13 (QID 112) (data_num version) levels = "No", "Yes" ###
 q<-"QuesID.13"
 i<-22
@@ -80,7 +87,7 @@ mylevels<-c("missing",
 levels(QuesID.14[,1])<-c(mylevels); summary(QuesID.14[,1])
 mydata<-cbind(mydata,QuesID.14)
 
-rm(df,aa,bb,r,q,a,b, alog,blog)
+rm(df,aa,bb,r,q,a,b,alog,blog)
 
 ### Question 16 (QID006) Levels: Active, Static, Other  VarIDs: 27:29 ###
 ### Note: this section was updated 6/4/2018. My understanding of factor 
@@ -109,7 +116,7 @@ summary(QuesID.16)
 
 mydata<-cbind(mydata,QuesID.16)
 
-rm(a,b,c,df,aa,bb,cc,r,alog,blog,clog,i,j,k,q)
+rm(a,b,c,df,aa,bb,cc,r,clog,i,j,k,q)
 
 source("yesno.R") # this function imports and cleans Yes/No questions (but not No/Yes questions)
 
@@ -159,15 +166,14 @@ rm(myoutdata)
 ###                          "Well established", "Fully implemented"
 ### VarIDs: 81-86; no comments field
 
-mynames<-c("rowID", "No process", "Under development", "Initiated", "Progressing", 
-           "Well established", "Fully implemented")
+mynames<-nonetofullimplNames
 
 myoutdata<-impLongFactor(mydata, x,"QuesID.26", 81,86, mynames, scoring)
 mydata<-cbind(mydata, myoutdata)
 
 
 ### QuesID = 27 (QID012) ###
-### XLS Cols: CC-DH  Levels: "No information", "Best available", "1-25%", "25-50%", 
+### XLS Cols: CI-CN  Levels: "No information", "Best available", "1-25%", "25-50%", 
 ###                           "50-75%", "75-100%"
 ### VarIDs: 87-92; no comments field
 
@@ -176,9 +182,181 @@ mynames<-c("rowID", "No information", "Best available", "1-25%", "25-50%",
 
 myoutdata<-impLongFactor(mydata, x,"QuesID.27", 87, 92, mynames, scoring)
 mydata<-cbind(mydata, myoutdata)
+rm(myoutdata)
+
+### QuesID = 28 (QID012) ###
+### XLS Cols: CO-CU  Levels: "Desired", "Planned-no resrcs", "Planned-resrcs avail", "In progress-partial resrcs", 
+###                           "In progress-full resrcs", "Fully implemented", "NA"
+### no comments field
+### VarIDS:
+varIDstr<-93
+varIDend<-99
+ 
+mynames<-resources
+
+myoutdata<-impLongFactor(mydata, x,"QuesID.28", varIDstr, varIDend, mynames, scoring)
+mydata<-cbind(mydata, myoutdata)
+rm(myoutdata)
+
+### QuesID = 30 (QID012) ###
+### XLS Cols: Cy-CZ  Levels: "FGDC", "other"
+### no comments field
+### VarIDS:
+varIDstr<-102
+varIDend<-103
+ques<-c("QuesID.30")
+
+mynames<-fgdcOther
+
+myoutdata<-impLongFactor(mydata, x,ques, varIDstr, varIDend, mynames, scoring)
+mydata<-cbind(mydata, myoutdata)
+rm(myoutdata)
+
+### QuesID = 31 (QID011) ###
+### XLS Cols: CZ-DE  Levels: "None", "Under development", "Initiated", "Progressing", 
+###                          "Well established", "Fully implemented"
+### no comments field
+### VarIDs:
+varIDstr<-104
+varIDend<-109
+ques<-c("QuesID.31")
+
+mynames<-nonetofullimplNames
+
+myoutdata<-impLongFactor(mydata, x,ques, varIDstr, varIDend, mynames, scoring)
+mydata<-cbind(mydata, myoutdata)
+rm(myoutdata)
+
+### QuesID = 32 (QID012) ###
+### XLS Cols: DF-DH  Levels: "Internal", "External", "other"
+### no comments field
+### VarIDs:
+varIDstr<-110
+varIDend<-112
+ques<-c("QuesID.32")
+
+mynames<-c("rowID", "Internal", "External", "other")
+
+myoutdata<-impLongFactor(mydata, x,ques, varIDstr, varIDend, mynames, scoring)
+mydata<-cbind(mydata, myoutdata)
+rm(myoutdata)
+
+### QuesID = 33 (QID013) ###
+### XLS Cols: DI-DO  Levels: "None", "Under development", "Initiated", "Progressing", 
+###                          "Well established", "Fully implemented"
+### Has comments field
+### VarIDs:
+varIDstr<-113
+varIDend<-119
+ques<-c("QuesID.33")
+
+mynames<-nonetofullimplNames
+
+myoutdata<-impLongFactWComm(mydata, x,ques, varIDstr, varIDend, mynames, scoring)
+mydata<-cbind(mydata, myoutdata)
+rm(myoutdata)
+
+### QuesID = 34 (QID101) ###
+### XLS Cols: DP-DU  Levels: "Desired", "Planned-no resrcs", "Planned-resrcs avail", "In progress-partial resrcs", 
+###                           "In progress-full resrcs", "Fully implemented"
+### no comments field
+### VarIDS:
+varIDstr<-120
+varIDend<-125
+ques<-c("QuesID.34")
+
+mynames<-resources[-8]
+
+myoutdata<-impLongFactor(mydata, x, ques, varIDstr, varIDend, mynames, scoring)
+mydata<-cbind(mydata, myoutdata)
+rm(myoutdata)
+
+### QuesID = 35 (QID016) ###
+### XLS Cols: DV-DZ  Levels: "None", "Under development", "Initiated", "Progressing", 
+###                          "Well established", "Fully implemented"
+### No comments field
+### VarIDs:
+varIDstr<-126
+varIDend<-131
+ques<-c("QuesID.35")
+
+mynames<-nonetofullimplNames
+
+myoutdata<-impLongFactor(mydata, x,ques, varIDstr, varIDend, mynames, scoring)
+mydata<-cbind(mydata, myoutdata)
+rm(myoutdata)
+
+### QuesID = 37 (QID018) ###
+### XLS Cols: EI-EN  Levels: "None", "Under development", "Initiated", "Progressing", 
+###                          "Well established", "Fully implemented"
+### No comments field
+### VarIDs:
+varIDstr<-139
+varIDend<-144
+ques<-c("QuesID.37")
+
+mynames<-nonetofullimplNames
+
+myoutdata<-impLongFactor(mydata, x,ques, varIDstr, varIDend, mynames, scoring)
+mydata<-cbind(mydata, myoutdata)
+rm(myoutdata)
+
+### QuesID = 38 (QID019) Optional Question ###
+### XLS Cols: Eo-ES  Levels: "Purchase", "Alter existing", "Share-aggregate existing", "Create-collect"
+###                   
+### Has comments field contained in an "Other" choice that imported in a second step.
+### VarIDs:
+varIDstr<-145
+varIDend<-149
+ques<-c("QuesID.38")
+
+mynames<-c("rowID","Purchase", "Alter existing", "Share-aggregate existing", "Create-collect", "Other")
+
+myoutdata<-impLongFactor(mydata, x,ques, varIDstr, varIDend, mynames, scoring) #Levels are incorrect due to the "other" = 0 value
+mylevels<-c("missing",mynames[6],mynames[2:5]) # Correcting the levels here
+levels(myoutdata$QuesID.38)<-mylevels
+
+mydata<-cbind(mydata, myoutdata)
+
+cols<-c(varIDstr:varIDend)
+comments<-data.frame(x[,cols[length(cols)]], stringsAsFactors = FALSE)
+names(comments)<-c(paste(ques,"Comments",sep="."))
+mydata<-cbind(mydata,comments)
+
+rm(myoutdata, mylevels, cols, comments) 
+
+### QuesID = 39 (QID020) ###
+### XLS Cols: ET-EV  Levels: "Not OGIC", "Under development", "Fully implemented"
+### No comments field
+### VarIDs:
+varIDstr<-150
+varIDend<-152
+ques<-c("QuesID.39")
+
+mynames<-c("rowID", "Not OGIC", "Under development", "Fully implemented")
+
+myoutdata<-impLongFactor(mydata, x,ques, varIDstr, varIDend, mynames, scoring)
+mydata<-cbind(mydata, myoutdata)
+rm(myoutdata) 
+
+### QuesID = 40 (QID021) ###
+### XLS Cols: EW-FB  Levels: "0%", "1 to <25%", "25 to <50%", "50 to <75%", "75 to <100%", "Fully complete"
+### No comments field
+### VarIDs:
+varIDstr<-153
+varIDend<-158
+ques<-c("QuesID.40")
+
+mynames<-c("rowID", "0%", "1 to <25%", "25 to <50%", "50 to <75%", "75 to <100%", "Fully complete")
+
+myoutdata<-impLongFactor(mydata, x,ques, varIDstr, varIDend, mynames, scoring)
+mydata<-cbind(mydata, myoutdata)
+rm(myoutdata) 
 
 
 
+
+rm(varIDend, varIDstr, ques, resources, fgdcOther, nonetofullimplNames)
 
 ### MERGE UNITED SURVEY DATA WITH THEMES & OTHER IDENTIFYING INFO ##
 
