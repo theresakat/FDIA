@@ -353,6 +353,32 @@ myoutdata<-impLongFactor(mydata, x,ques, varIDstr, varIDend, mynames, scoring)
 mydata<-cbind(mydata, myoutdata)
 rm(myoutdata) 
 
+### QuesID = 41 (QID022) Optional Question ###
+### XLS Cols: FC-FI  Levels: "Global", "US 50 states", "Oregon (all)", "Oregon (specific extents)",
+###                           "Oregon coast", "Oregon waterbodies", "Other"
+###                   
+### Has comments field contained in an "Other" choice that imported in a second step.
+### VarIDs:
+varIDstr<-159
+varIDend<-165
+ques<-c("QuesID.41")
+
+mynames<-c("rowID", "Global", "US 50 states", "Oregon (all)", "Oregon (specific extents)", 
+           "Oregon coast", "Oregon waterbodies", "Other")
+
+myoutdata<-impLongFactor(mydata, x,ques, varIDstr, varIDend, mynames, scoring) #Levels are incorrect due to the "other" = 0 value
+mylevels<-c("missing",mynames[length(mynames)],mynames[2:length(mynames)]) # Correcting the levels here
+levels(myoutdata[,1])<-mylevels
+
+mydata<-cbind(mydata, myoutdata)
+
+cols<-c(varIDstr:varIDend)
+comments<-data.frame(x[,cols[length(cols)]], stringsAsFactors = FALSE)
+names(comments)<-c(paste(ques,"Comments",sep="."))
+mydata<-cbind(mydata,comments)
+
+rm(myoutdata, mylevels, cols, comments) 
+
 
 
 
