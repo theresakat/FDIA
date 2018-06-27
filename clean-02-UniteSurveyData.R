@@ -38,6 +38,7 @@ nonetofullimplNames<-c("rowID", "None", "Under development", "Initiated", "Progr
 fgdcOther<-c("rowID", "FGDC", "other")
 resources<-c("rowID", "Desired", "Planned-no resrcs", "Planned-resrcs avail", "In progress-partial resrcs", 
               "In progress-full resrcs", "Fully implemented", "NA")
+processScale<-c("rowID", "No process", "Ad-hoc", "Repeatable", "Defined", "Managed", "Optimized")
 
 ### Question 13 (QID 112) (data_num version) levels = "No", "Yes" ###
 q<-"QuesID.13"
@@ -378,6 +379,84 @@ names(comments)<-c(paste(ques,"Comments",sep="."))
 mydata<-cbind(mydata,comments)
 
 rm(myoutdata, mylevels, cols, comments) 
+
+### QuesID = 42 (QID023) ###
+### XLS Cols: FJ-FO
+### Levels: "0%", "1 to <25%", "25 to <50%", "50 to <75%", "75 to <100%", "Fully complete"
+### No comments field
+### VarIDs:
+varIDstr<-166
+varIDend<-171
+ques<-c("QuesID.42")
+
+mynames<-c("rowID", "0%", "1 to <25%", "25 to <50%", "50 to <75%", "75 to <100%", "Fully complete")
+
+myoutdata<-impLongFactor(mydata, x,ques, varIDstr, varIDend, mynames, scoring)
+mydata<-cbind(mydata, myoutdata)
+rm(myoutdata) 
+
+### QuesID = 43 (QID004) ###
+### XLS Cols: FP-FR
+### Levels: "Not shared", "Secured", "Public"
+### No comments field
+### VarIDs:
+varIDstr<-172
+varIDend<-174
+ques<-c("QuesID.43")
+
+mynames<-c("rowID", "Not shared", "Secured", "Public")
+
+myoutdata<-impLongFactor(mydata, x,ques, varIDstr, varIDend, mynames, scoring)
+mydata<-cbind(mydata, myoutdata)
+rm(myoutdata)
+
+### QuesID = 44 (QID025) Access to data element via OSDL ###
+### XLS Cols: FS-FY  
+### Levels: "Desired", "Planned-no resrcs", "Planned-resrcs avail", "In progress-partial resrcs",
+###         "In progress-full resrcs", "Fully implemented", "Not Applicable"
+### Has comments field (use impLongFactWComm function)
+### VarIDs:
+varIDstr<-175
+varIDend<-182
+ques<-c("QuesID.44")
+
+mynames<-resources
+
+myoutdata<-impLongFactWComm(mydata, x,ques, varIDstr, varIDend, mynames, scoring) #Levels are incorrect due to the absence of 
+                                                                               # level 5 values ("In progress-full resrcs")
+                                                                               # Future enhancement: use ordered factor to ensure
+                                                                               # proper order maintained relative to other data (maybe)
+# Correcting the levels here
+mylevels<-c("missing","Desired", "Planned-no resrcs", "Planned-resrcs avail", "In progress-partial resrcs",
+            "Fully implemented", "Not Applicable", "In progress-full resrcs") 
+levels(myoutdata[,1])<-mylevels
+myoutdata[[1]]<-factor(myoutdata[[1]], 
+                       ordered = TRUE, 
+                       levels = c("missing","Not Applicable","Desired", "Planned-no resrcs", "Planned-resrcs avail", 
+                                  "In progress-partial resrcs","In progress-full resrcs","Fully implemented"))
+# myoutdata[[1]]<-recode_factor(myoutdata[[1]], 'missing' = NA_character_)   # Future enhancement: recode "missings" to NA_character_
+
+mydata<-cbind(mydata, myoutdata)
+rm(myoutdata, mylevels) 
+
+
+### Question 45 (QID025.2) Levels: Yes, No (in this order)  VarIDs: 183-184 ###
+mydata<-yesno(x,"QuesID.45", 183, 184)
+
+
+### QuesID = 46 (QID025.1) Process for accessing the data element ###
+### XLS Cols: GC-GI  
+### Levels: "rowID", "No process", "Ad-hoc", "Repeatable", "Defined", "Managed", "Optimized"
+### Has comments field 
+### VarIDs:
+varIDstr<-185
+varIDend<-191
+ques<-c("QuesID.46")
+
+mynames<-processScale
+
+#impLongFactWComm and impLongFactor don't work when there are empty levels in the data. Need to fix
+myoutdata<-impLongFactWComm(mydata, x,ques, varIDstr, varIDend, mynames, scoring) 
 
 
 

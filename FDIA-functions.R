@@ -71,6 +71,8 @@ impOther<-function(x,scoring,var) {
 
 # Future enhancement:
 # add option that will import a comment field if indicated to do so.
+# recode "missings" to NA_character_  E.g., myoutdata[[1]]<-recode_factor(myoutdata[[1]], 'missing' = NA_character_) 
+
 
 impLongFactWComm<- function(mydata, x, questionID, startCol, endCol, namesVect, scoring) {
   df<-mydata[,1]
