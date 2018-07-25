@@ -19,9 +19,10 @@
 #   
 #################################  
 
-### Step 1. Source 1_load_FDIA.R
+### Step 1. Source 1_load_FDIA.R and functions
 source("1_load_FDIA.R")
 source("yesno.R")
+source("FDIA-functions.R")
 
 x<-surveyData
 mydata<- data.frame(rowID=c(1:length(x[,1])))
@@ -455,7 +456,13 @@ ques<-c("QuesID.46")
 
 mynames<-processScale
 
-#impLongFactWComm and impLongFactor don't work when there are empty levels in the data. Need to fix
+#impLongFactWComm and impLongFactor don't work when there are empty levels in the data.
+# Need to fix ... I found that if I manually correct the logical variables that contain only
+# "NA", the outcome is fine. 
+# levels(df$Repeatable)<-c("", "4")
+# levels(df$Managed)<-c("", "6")
+# levels(df$Optimized)<-c("", "7")
+
 myoutdata<-impLongFactWComm(mydata, x,ques, varIDstr, varIDend, mynames, scoring) 
 
 
