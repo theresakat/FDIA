@@ -462,7 +462,11 @@ mynames<-processScale
 # levels(df$Repeatable)<-c("", "4")
 # levels(df$Managed)<-c("", "6")
 # levels(df$Optimized)<-c("", "7")
-
+#
+## Conclusion: I've create a new impFactor3 that imports factors using the factor() function
+## and uses the Scoring table to assign the right level. NA's need to be assigned to missing or blank value
+## to be consistent with the other factors imported with specifics.
+## Next action: how can NA's be excluded from import?
 myoutdata<-impLongFactWComm(mydata, x,ques, varIDstr, varIDend, mynames, scoring) 
 
 

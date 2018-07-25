@@ -39,6 +39,15 @@ impFactor2<- function(x, scoring, var) {
   return(a)
 }
 
+### impFactor3 ###
+#
+# Purpose: Simple function to import a factor and properly label it even when "empty"
+
+impFactor3<- function(x, scoring, var) {
+  mylevels<-c("",paste(scoring[scoring$VarID==var,"labelCode"]))
+  a<-factor(x[,var],mylevels); head(a); str(a)
+  return(a)
+}
 
 ### impOther ###
 # 
