@@ -30,7 +30,7 @@ scores<-paste(mywd,"\\CSV\\Scoring.csv", sep="")
 
 # Read the CSV file (Survey Monkey provides a CSV in its downloads)
 surveyData<-read.csv(c(myfile),header=F, sep=",", skip = 3)
-# scoring<-read.csv(c(scores), header=T, sep=",", nrows = 267)
+scoring<-read.csv(c(scores), header=T, sep=",", nrows = 268)
 
 # Read the exported Framework MASTER from Framework database
 # tblfwname<-paste("","CSV", "1_tblFrameworkData_MASTER.csv", sep = "/")  # Mac

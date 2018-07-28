@@ -468,11 +468,13 @@ mynames<-processScale
 ## to be consistent with the other factors imported with specifics.
 ## Next action: how can NA's be excluded from import?
 myoutdata<-impLongFactWComm(mydata, x,ques, varIDstr, varIDend, mynames, scoring) 
+mydata<-cbind(mydata, myoutdata)
 
 
 
 
-rm(varIDend, varIDstr, ques, resources, fgdcOther, nonetofullimplNames)
+
+
 
 ### MERGE UNITED SURVEY DATA WITH THEMES & OTHER IDENTIFYING INFO ##
 
