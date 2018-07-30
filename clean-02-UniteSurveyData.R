@@ -24,11 +24,6 @@ source("1_load_FDIA.R")
 source("yesno.R")
 source("FDIA-functions.R")
 
-x<-surveyData
-mydata<- data.frame(rowID=c(1:length(x[,1])))
-# mydata<-cbind(mydata,x[,c("V10","V11")])
-# names(mydata)[2:3] <- c("DataElem", "ID")
-
 # Add names to the outlines object as code is developed
 outnames<-c("13_Keep","14_NameIssue","16_Active","17_StatExtent","18_BrdUsers",
             "19_FDE","20_2FDE","21_RtThm","21_RtThmComments")
@@ -40,6 +35,15 @@ fgdcOther<-c("rowID", "FGDC", "other")
 resources<-c("rowID", "Desired", "Planned-no resrcs", "Planned-resrcs avail", "In progress-partial resrcs", 
               "In progress-full resrcs", "Fully implemented", "NA")
 processScale<-c("rowID", "No process", "Ad-hoc", "Repeatable", "Defined", "Managed", "Optimized")
+
+
+# Retrieve data
+x<-surveyData
+mydata<- data.frame(rowID=c(1:length(x[,1])))
+# mydata<-cbind(mydata,x[,c("V10","V11")])
+# names(mydata)[2:3] <- c("DataElem", "ID")
+# 
+# 
 
 ### Question 13 (QID 112) (data_num version) levels = "No", "Yes" ###
 q<-"QuesID.13"
@@ -456,23 +460,26 @@ ques<-c("QuesID.46")
 
 mynames<-processScale
 
-#impLongFactWComm and impLongFactor don't work when there are empty levels in the data.
-# Need to fix ... I found that if I manually correct the logical variables that contain only
-# "NA", the outcome is fine. 
-# levels(df$Repeatable)<-c("", "4")
-# levels(df$Managed)<-c("", "6")
-# levels(df$Optimized)<-c("", "7")
-#
-## Conclusion: I've create a new impFactor3 that imports factors using the factor() function
-## and uses the Scoring table to assign the right level. NA's need to be assigned to missing or blank value
-## to be consistent with the other factors imported with specifics.
-## Next action: how can NA's be excluded from import?
 myoutdata<-impLongFactWComm(mydata, x,ques, varIDstr, varIDend, mynames, scoring) 
 mydata<-cbind(mydata, myoutdata)
 
+### QuesID = 47 (QID026) Stewardship Process status ###
+### XLS Cols: GC-GI  
+### Levels: "rowID", "Desired", "Planned-no resrcs", "Planned-resrcs avail", 
+###         "In progress-partial resrcs", "In progress-full resrcs", 
+###         "Fully implemented"
+### Comments field: Comments are in the "Fully implemented" column
+### VarIDs:
+varIDstr<-192
+varIDend<-197
+ques<-c("QuesID.47")
 
+mynames<-resources[-length(resources)]
 
+myoutdata<-impOther(mydata, x,ques, varIDstr, varIDend, mynames, scoring) 
+mydata<-cbind(mydata, myoutdata)
 
+# next step is to import the comments for this item
 
 
 

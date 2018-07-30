@@ -24,7 +24,7 @@
 #   - fixed issue when there aren't any values in the imported data (i.e., no one selected 
 #         an option in the survey). 
 #         
-# Future enhancements: 
+# Future enhancements: update to replace the for() loop with an apply() functional
 # 
 # old code:
 # impFactor<- function(x, scoring, var) {
@@ -112,7 +112,6 @@ impLongFactWComm<- function(mydata, x, questionID, startCol, endCol, namesVect, 
   }
   names(df)<-namesVect
   r<-unite(df,questionID,2:length(df), sep="")
-  # Solution form: rford<-factor(r$questionID, ordered = TRUE, levels = c("","2","3","4","5","6", "0"))
   rflevels<- c("", as.character(1:(length(namesVect)-1)))
   rf<-factor(r$questionID, ordered = TRUE, levels = rflevels) 
   
