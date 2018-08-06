@@ -20,7 +20,7 @@
 #################################  
 
 ### Step 1. Source 1_load_FDIA.R and functions
-source("1_load_FDIA.R")
+source("1_load_FDIA.R")  # loads packages only
 source("yesno.R")
 source("FDIA-functions.R")
 
@@ -476,11 +476,144 @@ ques<-c("QuesID.47")
 
 mynames<-resources[-length(resources)]
 
-myoutdata<-impOther(mydata, x,ques, varIDstr, varIDend, mynames, scoring) 
+myoutdata<-impLongFactor(mydata, x,ques, varIDstr, varIDend, mynames, scoring) 
 mydata<-cbind(mydata, myoutdata)
 
-# next step is to import the comments for this item
+cols<-c(varIDstr:varIDend)
+comments<-data.frame(x[,cols[length(cols)]], stringsAsFactors = FALSE)
+names(comments)<-c(paste(ques,"Comments",sep="."))
+mydata<-cbind(mydata,comments)
 
+rm(myoutdata, mylevels, cols, comments) 
+
+
+### QuesID = 48 (QID027) Existing Stewardship Process ###
+### XLS Cols: GP-GV  
+### Levels: "rowID", "ad-hoc", "single", "two", "more than two", "informal", "formal", "other"
+### No comments field
+### VarIDs:
+varIDstr<-198
+varIDend<-204
+ques<-c("QuesID.48")
+
+mynames<-c("rowID", "ad-hoc", "single", "two", "more than two", "informal", "formal", "other")
+
+myoutdata<-impLongFactor(mydata, x,ques, varIDstr, varIDend, mynames, scoring) 
+mydata<-cbind(mydata, myoutdata)
+
+
+### QuesID = 49 (QID028) QA/QC process ###
+### XLS Cols: GW-HB  
+### Levels: "rowID", "None", "Under development", "Initiated", "Progressing",
+###         "Well established", "Fully implemented"
+### No comments field
+### VarIDs:
+varIDstr<-205
+varIDend<-210
+ques<-c("QuesID.49")
+
+mynames<-nonetofullimplNames
+
+myoutdata<-impLongFactor(mydata, x,ques, varIDstr, varIDend, mynames, scoring) 
+mydata<-cbind(mydata, myoutdata)
+
+### QuesID = 50 (QID103) Horizontal integration procedures ###
+### XLS Cols: HC-HI  
+### Levels: "rowID", "No process", "Ad-hoc", "Repeatable", "Defined", "Managed", "Optimized"
+### Has comments field 
+### VarIDs:
+varIDstr<-211
+varIDend<-217
+ques<-c("QuesID.50")
+
+mynames<-processScale
+
+myoutdata<-impLongFactWComm(mydata, x,ques, varIDstr, varIDend, mynames, scoring) 
+mydata<-cbind(mydata, myoutdata)
+
+### QuesID = 51 (QID104) Vertical integration procedures ###
+### XLS Cols: HC-HI  
+### Levels: "rowID", "No process", "Ad-hoc", "Repeatable", "Defined", "Managed", "Optimized"
+### Has comments field 
+### Note: V224 contains only the label for the question and is useless, so I omit it to create
+###       "y" data set. The varIDend indicates true column number, so is V225-1 = 224.
+### VarIDs:
+varIDstr<-218
+varIDend<-224
+
+y<-x[,-224]
+
+ques<-c("QuesID.51")
+
+mynames<-processScale
+
+myoutdata<-impLongFactWComm(mydata, y,ques, varIDstr, varIDend, mynames, scoring) 
+mydata<-cbind(mydata, myoutdata)
+
+rm(y)
+
+### QuesID = 52 (QID029) Process for meeting user needs ###
+### XLS Cols: HR-HX  
+### Levels: "rowID", "None", "Under development", "Initiated", "Progressing",
+###         "Well established", "Fully implemented"
+### Has comments field 
+### VarIDs:
+varIDstr<-226
+varIDend<-232
+
+ques<-c("QuesID.52")
+
+mynames<-nonetofullimplNames
+
+myoutdata<-impLongFactWComm(mydata, x,ques, varIDstr, varIDend, mynames, scoring) 
+mydata<-cbind(mydata, myoutdata)
+
+### QuesID = 53 (QID030) Process for helping users evaluate and use data ###
+### XLS Cols: HY-IE  
+### Levels: "rowID", "None", "Under development", "Initiated", "Progressing",
+###         "Well established", "Fully implemented"
+### Has comments field 
+### VarIDs:
+varIDstr<-233
+varIDend<-239
+
+ques<-c("QuesID.53")
+
+mynames<-nonetofullimplNames
+
+myoutdata<-impLongFactWComm(mydata, x,ques, varIDstr, varIDend, mynames, scoring) 
+mydata<-cbind(mydata, myoutdata)
+
+### QuesID = 54 (QID031) Appraising process (optional) ###
+### XLS Cols: IF-IL  
+### Levels: "rowID", "None", "Under development", "Initiated", "Progressing",
+###         "Well established", "Fully implemented"
+### Has comments field 
+### VarIDs:
+varIDstr<-240
+varIDend<-246
+
+ques<-c("QuesID.54")
+
+mynames<-nonetofullimplNames
+
+myoutdata<-impLongFactWComm(mydata, x,ques, varIDstr, varIDend, mynames, scoring) 
+mydata<-cbind(mydata, myoutdata)
+
+### QuesID = 55 (QID032) Archived data location (optional) ###
+### XLS Cols: IM-IR  
+### Levels: "rowID", "No data", "Archived", "Local", "Other", "Not applicable"
+### Has comments field 
+### VarIDs:
+varIDstr<-247
+varIDend<-252
+
+ques<-c("QuesID.55")
+
+mynames<-c("rowID", "No data", "Archived", "Local", "Other", "Not applicable")
+
+myoutdata<-impLongFactWComm(mydata, x,ques, varIDstr, varIDend, mynames, scoring) 
+mydata<-cbind(mydata, myoutdata)
 
 
 ### MERGE UNITED SURVEY DATA WITH THEMES & OTHER IDENTIFYING INFO ##

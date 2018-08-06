@@ -138,10 +138,15 @@ impLongFactor<- function(mydata, x, questionID, startCol, endCol, namesVect, sco
   cols<-c(startCol:endCol)
   for (i in cols) {
     df<-data.frame(df,impFactor(x, scoring,i))
+    newlevels<-c("", as.character(scoring[scoring$VarID==i, "labelCode"]))
+    if(all(is.empty(as.character(df[,length(df)])))) {
+      levels(df[,length(df)])<-newlevels
+    }
   }
   names(df)<-namesVect
   r<-unite(df,questionID,2:length(df), sep="")
-  rf<-factor(r$questionID)
+  rflevels<- c("", as.character(1:(length(namesVect)-1)))
+  rf<-factor(r$questionID, ordered = TRUE, levels = rflevels) 
   levels(rf)<-c("missing",names(df)[-1])
   outdata<-data.frame(rf)
   names(outdata)<-c(paste(questionID))
