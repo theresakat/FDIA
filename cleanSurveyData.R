@@ -8,8 +8,8 @@
 #   - align spelling of data elements with Framework MASTER
 #   
 # Prerequisites
-#   surveyData      loaded using the 1_load_FDIA.R
-#   dat             Framework MASTER table loaded using 1_load_FDIA.R
+#   surveyData      loaded using the 2_importData.R
+#   dat             Framework MASTER table loaded using 2_importData.R
 # 
 
 ################################################
@@ -18,7 +18,7 @@
 # Errors in the raw survey data will go here
 mywd<-"C:\\temp\\FDIA"
 setwd(mywd)
-outfile<-paste(mywd,"\\CSV\\errors_20180604.csv", sep="")
+outfile<-paste(mywd,"\\CSV\\errors_20180806.csv", sep="")
 
 # Corrections will come from here
 correctionsData<-"C:\\temp\\FDIA\\CSV\\corrections_20180604.csv"
@@ -27,7 +27,7 @@ correctionsData<-"C:\\temp\\FDIA\\CSV\\corrections_20180604.csv"
 # Errors in the raw survey data will go here
 mywd<-"C:/temp/FDIA"
 setwd(mywd)
-outfile<-paste(mywd,"/CSV/errors_20180604.csv", sep="")
+outfile<-paste(mywd,"/CSV/errors_20180806.csv", sep="")
 
 # Corrections will come from here
 correctionsData<-"/Users/tkb/Work/GEO/fdia-mac/CSV/corrections.csv"
@@ -42,7 +42,7 @@ de <- data.frame(ID=c(1:nrow(surveyData)))
 de<-data.frame(surveyData[,10:11])
 names(de)<-c("DataElem","ID")
 
-# Merge the survey responses and Framework MASTER table to match responses with themes
+# Merge the survey response variables and Framework MASTER table to match responses with themes
 y<-merge(de,dat, all.x=TRUE)
 
 # Create a selection vector to identify the survey responses that don't match the Framework MASTER table

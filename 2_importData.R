@@ -34,6 +34,6 @@ scoring<-read.csv(c(scores), header=T, sep=",", nrows = 268)
 
 # Read the exported Framework MASTER from Framework database
 # tblfwname<-paste("","CSV", "1_tblFrameworkData_MASTER.csv", sep = "/")  # Mac
-tblfwname<-paste("CSV", "1_tblFrameworkData_MASTER.csv", sep = "\\") # Windows
+tblfwname<-paste("\\","CSV", "1_tblFrameworkData_MASTER.csv", sep = "\\") # Windows
 myfile<-paste(mywd,tblfwname, sep = "")
 dat<-read.csv(c(myfile),header=T, sep = ",")

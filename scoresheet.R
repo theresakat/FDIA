@@ -4,11 +4,11 @@
 # 
 # Required files:
 #   dat             contains the contents of the 1_tblFrameworkData_MASTER.csv (load using 1_load_FDIA.R)
-#   surveyData      contains the raw imported survey data
+#   surveyData      contains the raw imported survey data (missing IDs corrected)
 #   surveyDataThm   corrected survey data with themes field. Created using "cleanSurveyData.R"
 
 # Workflow
-#   1. import data to R using load script
+#   1. import data to R using import script
 #   2. set up empty data frame for identifying and exporting mismatched records in the data
 #   3. correct data element names
 #   4. add data element numeric IDs where missing

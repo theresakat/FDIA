@@ -619,12 +619,13 @@ mydata<-cbind(mydata, myoutdata)
 ### MERGE UNITED SURVEY DATA WITH THEMES & OTHER IDENTIFYING INFO ##
 
 selcols<-c("V11", "V10") # ID and data element names
-sel<-select(x, selcols)
+sel<-select(surveyData, selcols)
 # names(sel)[1:2]<-c("ID","DataElem")
 mydata<-cbind(mydata,sel)
-thms<-c("V11","V10","Theme", "")
+thms<-c("V11","V10","Theme", "Element")
 mydata<-merge(mydata,surveyDataThm[,thms], by=c("V11","V10"), all.x = TRUE)
 # names(mydata)[5:13]<-outnames
 
 ### Select some records from the merged survey data
-as.matrix(tmydata[tmydata$QuesID.13=="No","V10"])
+as.matrix(mydata[mydata$QuesID.13=="No","V10"])
+as.matrix(mydata[mydata$Theme,"V10"])
