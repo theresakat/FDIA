@@ -36,10 +36,14 @@ observed<-as.numeric(with(surveyDataThm, table(Theme)))
 retrate<-observed/expected
 diff<-expected-observed
 tally<-cbind(observed,expected,diff,retrate)
+tally<-tally[,c(1,2,4,6,8)]
+names(tally)<-c("Theme", "Observed", "Expected","Difference", "RetRate")
+
+write.table(tally, "C:\\temp\\FDIA\\CSV\\tally.csv", sep = ",")
 # write.table(tally,"/Users/tkb/Work/GEO/fdia-mac/CSV/tally.csv",sep = ",") #MAC path
 
 # Create bar charts showing observed and expected
-tallyplt<-spineplot(tally[,c(1,3)],
+tallyplt<-spineplot(tallydf[,1:2],
           main = "Data Elements Surveyed Relative to Theme",
           xlab = "", ylab = "",
           yaxlabels = c("Observed","Expected"),
@@ -58,9 +62,14 @@ legend("top",
 tallydf<-as.data.frame(tally)
 text(tallyplt,tallydf$retrate+2,labels=as.character(tallydf$retrate))
 
+###
+###
 library(ggplot2)
 
 tallyplt<-ggplot() + geom_bar(aes(y = observed),data=tallydf, 
+                              stat = "identity")
+
+tallyplt<-ggplot() + geom_dotplot(aes(y = observed),data=tallydf, 
                               stat = "identity")
 
 tallyplt
