@@ -13,7 +13,7 @@
 #                   raw surveyData data frame. Be aware that columns are ordered "V11", "V1", "V2",... This re-
 #                   ordering resulted from the merging of the raw data with Framework MASTER table            
 
-# Futuer enhancements
+# Future enhancements
 #   1. update manipulation of factors for questions 13, 14, and 17-21 to be more efficient
 #   
 #   
