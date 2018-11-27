@@ -39,7 +39,7 @@ tally<-cbind(observed,expected,diff,retrate)
 tally<-tally[,c(1,2,4,6,8)]
 names(tally)<-c("Theme", "Observed", "Expected","Difference", "RetRate")
 
-write.table(tally, "C:\\temp\\FDIA\\CSV\\tally.csv", sep = ",")
+write.table(tally, "C:\\temp\\FDIA\\CSV\\tally_20181014.csv", sep = ",")
 # write.table(tally,"/Users/tkb/Work/GEO/fdia-mac/CSV/tally.csv",sep = ",") #MAC path
 
 # Create bar charts showing observed and expected
