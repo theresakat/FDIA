@@ -1,0 +1,29 @@
+Files and Scripts List
+----------------------
+
+1_Load_FDIA.R       Loads multiple data sets: raw export of Survey Monkey data;
+                    Scoring codes; Framework Master table (from FW database)
+                
+clean_SurveyData.R  Clean/add IDs/correct spellings, etc.
+
+clean_part01.R      Unite responses for single questions that span multiple 
+                    columns in raw Survey Monkey data
+                
+yesno.R             Unite yes/no question columns in in raw Survey Monkey data
+
+1_FDIAfunctions.R   collection of functions to import factors. Future 
+                    enhancement: create a single function that can use 
+                    conditions to apply the correct import procedure/func.
+
+mydata              dataset. Primary, cleaned, and united dataset. All
+                    variables/questions, including comments. Themes and FIT
+                    database elem. names merged.      
+                    
+mydataNoComms       dataset. 'mydata' dataset with comment columns omitted
+
+surveyData          dataset. Raw survey data table as exported from Survey
+                    Monkey
+                    
+v0.2                branch. New branch for importing and cleaning newer survey
+                    responses. Created: 11-30-2018     
+                    
