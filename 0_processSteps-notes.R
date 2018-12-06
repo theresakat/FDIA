@@ -6,13 +6,13 @@
 #
 
 # STEP 1. 
-#Read in the data to be merged (LOAD)
-#
+#Read in the required libraries (LOAD)
 
 # STEP 2. 
-#Generate the code for merging (CLEAN)
+#Read in the data to be merged (IMPORT)
 
 # STEP 3. 
+#Generate the code for merging (CLEAN)
 #Merging (CLEAN)
 dd<-unite(d,"response",1:3, sep = "_")
 

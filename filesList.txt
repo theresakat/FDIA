@@ -1,21 +1,47 @@
+----------------------
 Files and Scripts List
 ----------------------
 
-1_Load_FDIA.R       Loads multiple data sets: raw export of Survey Monkey
+--------------
+BRANCHES
+--------------
+master              original branch.
+
+v0.2                branch. New branch for importing and cleaning newer survey
+                    responses. Created: 11-30-2018 
+
+--------------                  
+SCRIPTS                   
+--------------
+
+1_Load_FDIA.R       Loads R libraries
+
+2_importData.R      Imports data: raw export of Survey Monkey
                     data; Scoring codes; Framework Master table (from FW
                     database)
                 
-clean_SurveyData.R  Clean/add IDs/correct spellings, etc.
+3.0_clean_SurveyData.R  Clean/add IDs/correct spellings, etc.
 
-clean_part01.R      Unite responses for single questions that span multiple 
+3.1_clean-02-UniteSurveyData.R    Unite responses for single questions that span multiple 
                     columns in raw Survey Monkey data
+                    
+4_EDA.R             Uses results from maturityInd.R to create some simple 
+                    graphs of the maturity index.
                 
-yesno.R             Unite yes/no question columns in in raw Survey Monkey data
+maturityInd.R       Calculate the maturity index.
 
-1_FDIAfunctions.R   collection of functions to import factors. Future 
+scoresheet.R        Generate element counts by theme.
+
+FDIAfunctions.R     collection of functions to import factors. Future 
                     enhancement: create a single function that can use 
                     conditions to apply the correct import procedure/func.
+                    
+yesno.R             Unite yes/no question columns in in raw Survey Monkey data
 
+
+--------------                  
+DATASETs                   
+--------------
 mydata              dataset. Primary, cleaned, and united dataset. All
                     variables/questions, including comments. Themes and FIT
                     database elem. names merged.      
@@ -24,9 +50,6 @@ mydataNoComms       dataset. 'mydata' dataset with comment columns omitted
 
 surveyData          dataset. Raw survey data table as exported from Survey
                     Monkey
-                    
-v0.2                branch. New branch for importing and cleaning newer survey
-                    responses. Created: 11-30-2018 
                     
 mydata-clean-20181127.csv   dataset export from R. Data source in R: mydata
                     Purpose: data were exported to allow import to Excel for
@@ -37,4 +60,4 @@ mydata-clean-20181127.xlsx   dataset export from R. Data source in R:
                     Purpose: data were exported to use Excel for quick sorting
                     of the results. 
                     
-                    
+matSort             dataset. Results of the maturityInd.R script.                    
