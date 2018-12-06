@@ -1,8 +1,9 @@
 Files and Scripts List
 ----------------------
 
-1_Load_FDIA.R       Loads multiple data sets: raw export of Survey Monkey data;
-                    Scoring codes; Framework Master table (from FW database)
+1_Load_FDIA.R       Loads multiple data sets: raw export of Survey Monkey
+                    data; Scoring codes; Framework Master table (from FW
+                    database)
                 
 clean_SurveyData.R  Clean/add IDs/correct spellings, etc.
 
