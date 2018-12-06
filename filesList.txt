@@ -26,5 +26,15 @@ surveyData          dataset. Raw survey data table as exported from Survey
                     Monkey
                     
 v0.2                branch. New branch for importing and cleaning newer survey
-                    responses. Created: 11-30-2018     
+                    responses. Created: 11-30-2018 
+                    
+mydata-clean-20181127.csv   dataset export from R. Data source in R: mydata
+                    Purpose: data were exported to allow import to Excel for
+                    quick sorting of the results. 
+                    
+mydata-clean-20181127.xlsx   dataset export from R. Data source in R: 
+                    -clean-20181127.csv
+                    Purpose: data were exported to use Excel for quick sorting
+                    of the results. 
+                    
                     
