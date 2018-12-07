@@ -16,9 +16,11 @@ which(duplicated(de$ID) | duplicated(de$ID, fromLast = TRUE))
 which(duplicated(de$DataElem))
 which(duplicated(de$DataElem) | duplicated(de$DataElem, fromLast = TRUE))
 
-
+# Digital elevation model redundancies
 grep("^digital elevation", de$DataElem)
 grep("^digital elevation", y$Element)
 y[grep("^digital elevation", y$Element), c("ID","DataElem", "Theme", "Element")]
-y[grep("bathymetry", y$DataElem), c("ID","DataElem")]
+
+# Bathymetry ID issue
+y[grep("bathymetry", y$DataElem), c("ID","DataElem", "Theme", "Element")]
 dat[dat$ID==122,1:5]
