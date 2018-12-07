@@ -8,12 +8,12 @@
 library(tidyr)
 library(stringr)
 library(plyr)
-library(dplyr)
 library(reshape2)
 library(ggplot2)
 library(rlang)
 library(rapportools)
 library(tidyverse)
+#library(dplyr) included in tidyverse
 # library(xlsx)
 
 

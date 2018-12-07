@@ -18,22 +18,24 @@
 # Errors in the raw survey data will go here
 mywd<-"C:\\temp\\FDIA"
 setwd(mywd)
-outfile<-paste(mywd,"\\CSV\\errors_20180806.csv", sep="")
+outfile<-paste(mywd,"\\CSV\\errors_", Sys.Date(), ".csv", sep="")
 
-# Corrections will come from here
+# Input source file & path for old corrections  
 correctionsData<-"C:\\temp\\FDIA\\CSV\\corrections_20180604.csv"
 
 ### Set environment - MAC
 # Errors in the raw survey data will go here
 mywd<-"C:/temp/FDIA"
 setwd(mywd)
-outfile<-paste(mywd,"/CSV/errors_20180806.csv", sep="")
+outfile<-paste(mywd,"/CSV/errors_", Sys.Date(), ".csv", sep="")
 
-# Corrections will come from here
+# Input source file & path for corrections  
 correctionsData<-"/Users/tkb/Work/GEO/fdia-mac/CSV/corrections.csv"
 
 
-### Data processing steps start below ###
+##### Data processing steps start below #####
+
+### Create table of mismatched survey data element names and Framework MASTER table element names
 
 # Create empty data frame
 de <- data.frame(ID=c(1:nrow(surveyData)))
@@ -43,12 +45,23 @@ de<-data.frame(surveyData[,10:11])
 names(de)<-c("DataElem","ID")
 
 # Merge the survey response variables and Framework MASTER table to match responses with themes
-y<-merge(de,dat, all.x=TRUE)
+y<-merge(de, dat, all.x=TRUE)
 
 # Create a selection vector to identify the survey responses that don't match the Framework MASTER table
 select<-which(is.na(y$ID))
 
-### Correct survey response data element names and IDs ###
+# Import old corrections file & merge in new errors for correction
+c<-read.csv(correctionsData, header = TRUE, sep = ",", stringsAsFactors = FALSE)
+errors<-y[select,c("ID","DataElem")]
+select2<-which(!(errors$DataElem %in% c$DataElem))
+newErrors<-rbind(c,data.frame(errors[select2, c("ID","DataElem")], newID = NA))
+
+# Deal with other known errors
+y[grep("^digital elevation", y$Element), c("ID","DataElem")]
+
+dem<-
+
+# 
 
 # Export missing ID errors to CSV to match errors to their corrections. Use Excel to create the error-to-correction LUT
 write.table(y[select,c("ID","DataElem")], outfile, sep = ",", row.name=FALSE)
@@ -56,6 +69,8 @@ write.table(y[select,c("ID","DataElem")], outfile, sep = ",", row.name=FALSE)
 # Reminder message
 message<-c("    Next step: Use Excel to build the error-to-corrections LUT from ")
 cat("\n",c(message,outfile),"\n")
+
+### Correct survey response data element names and IDs ###
 
 # MANUALLY IN EXCEL --> correct the known errors using corrections LUT called "correctionsData" 
 # (the exported errors from above with the corrections added)
