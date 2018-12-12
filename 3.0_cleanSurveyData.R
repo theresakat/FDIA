@@ -37,12 +37,15 @@ correctionsData<-"/Users/tkb/Work/GEO/fdia-mac/CSV/corrections.csv"
 
 ### Create table of mismatched survey data element names and Framework MASTER table element names
 
-# Create empty data frame
+# Create empty data frame for data errors
 de <- data.frame(ID=c(1:nrow(surveyData)))
 
 # Add survey responses for data element names and IDs to the empty data frame 
 de<-data.frame(surveyData[,10:11])
 names(de)<-c("DataElem","ID")
+
+# Correct problematic IDs (see 3.0.1_findErrors.R)
+de[de$DataElem == "bathymetry", 2]<-122
 
 # Merge the survey response variables and Framework MASTER table to match responses with themes
 y<-merge(de, dat, all.x=TRUE)
@@ -50,18 +53,13 @@ y<-merge(de, dat, all.x=TRUE)
 # Create a selection vector to identify the survey responses that don't match the Framework MASTER table
 select<-which(is.na(y$ID))
 
-# Import old corrections file & merge in new errors for correction
+# Import old corrections file (c) & merge in new errors for correction
+#   This step creates an updated error file containing survey records that don't have a match in Framework
+#   MASTER table. 
 c<-read.csv(correctionsData, header = TRUE, sep = ",", stringsAsFactors = FALSE)
 errors<-y[select,c("ID","DataElem")]
 select2<-which(!(errors$DataElem %in% c$DataElem))
 newErrors<-rbind(c,data.frame(errors[select2, c("ID","DataElem")], newID = NA))
-
-# Deal with other known errors
-y[grep("^digital elevation", y$Element), c("ID","DataElem")]
-
-dem<-
-
-# 
 
 # Export missing ID errors to CSV to match errors to their corrections. Use Excel to create the error-to-correction LUT
 write.table(y[select,c("ID","DataElem")], outfile, sep = ",", row.name=FALSE)
@@ -90,3 +88,11 @@ surveyDataThm <- merge(surveyData, dat, by.x = "V11", by.y = "ID")
 # Reminder message
 message <- "Use \`surveyDataThm\` for creating the scoresheet tally. surveyDataThm can also be used as basis for uniting variables using \`clean-02-UniteSurveyData.R\`"
 cat("\n",c(message))
+
+### Deal with other known errors ### 
+y[grep("^digital elevation", y$Element), c("ID","DataElem")]
+
+dem<-
+  
+  # 
+  
