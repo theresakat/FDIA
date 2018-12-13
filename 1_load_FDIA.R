@@ -5,13 +5,14 @@
 # Source the functions & libraries #
 #source("C:\\temp\\BLM Leks to Landscapes Project_287315\\Analysis\\SpatialScaling_task2\\Friedmans\\code\\func.r")
 
-library(tidyr)
-library(stringr)
+
+# library(stringr) # not available for R version 3.5.1
 library(plyr)
-library(reshape2)
+# library(reshape2)
 library(ggplot2)
 library(rlang)
-library(rapportools)
+library(rapportools) # install returned 
+library(tidyr)
 library(tidyverse)
 #library(dplyr) included in tidyverse
 # library(xlsx)

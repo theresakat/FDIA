@@ -25,7 +25,7 @@ scores<-paste(mywd,"\\CSV\\Scoring.csv", sep="")
 # # Set working directory and path to input CSV on Mac
 # mywd<-"/Users/tkb/Work/GEO/fdia-mac"
 # setwd(mywd)
-# # myfile<-paste(mywd,"/CSV/Framework Data Inventory  Assessment v. 1.0.csv", sep = "")
+# myfile<-paste(mywd,"/CSV/Framework Data Inventory  Assessment v. 1.0.csv", sep = "")
 # scores<-paste(mywd,"/CSV/Scoring.csv", sep="")
 
 # Read the CSV file (Survey Monkey provides a CSV in its downloads)

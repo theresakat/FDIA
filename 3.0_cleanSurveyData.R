@@ -25,13 +25,10 @@ correctionsData<-"C:\\temp\\FDIA\\CSV\\corrections_20180604.csv"
 
 ### Set environment - MAC
 # Errors in the raw survey data will go here
-mywd<-"C:/temp/FDIA"
-setwd(mywd)
 outfile<-paste(mywd,"/CSV/errors_", Sys.Date(), ".csv", sep="")
 
-# Input source file & path for corrections  
-correctionsData<-"/Users/tkb/Work/GEO/fdia-mac/CSV/corrections.csv"
-
+# Input source file & path for old corrections  
+correctionsData<-"/Users/tkb/Work/GEO/fdia-mac/CSV/corrections_20180604.csv"
 
 ##### Data processing steps start below #####
 
@@ -61,8 +58,9 @@ errors<-y[select,c("ID","DataElem")]
 select2<-which(!(errors$DataElem %in% c$DataElem))
 newErrors<-rbind(c,data.frame(errors[select2, c("ID","DataElem")], newID = NA))
 
-# Export missing ID errors to CSV to match errors to their corrections. Use Excel to create the error-to-correction LUT
-write.table(y[select,c("ID","DataElem")], outfile, sep = ",", row.name=FALSE)
+# Export missing ID errors to CSV to match errors to their corrections. Use Excel to create the 
+# error-to-correction LUT for missing FW data element IDs
+write.table(newErrors, outfile, sep = ",", row.name=FALSE)
 
 # Reminder message
 message<-c("    Next step: Use Excel to build the error-to-corrections LUT from ")
@@ -74,10 +72,13 @@ cat("\n",c(message,outfile),"\n")
 # (the exported errors from above with the corrections added)
 
 # Read in the corrections LUT
-a<-read.csv(correctionsData, header = TRUE, sep = ",", stringsAsFactors = TRUE)
+a<-read.csv(outfile, header = TRUE, sep = ",", stringsAsFactors = TRUE)
 corrections<-a[,c("DataElem","newID")]
 for(i in corrections$DataElem) {
-  surveyData[ which(surveyData$V10==i), 11]<-corrections[ which(corrections$DataElem==i),"newID"] }
+  # surveyData[ which(surveyData$V10==i), 11]<-corrections[ which(corrections$DataElem==i),"newID"] }
+  de[ which(de$DataElem == i), "ID"] <- corrections[ which(corrections$DataElem==i),"newID"] }
+
+#### What am I doing from here on??? ####
 
 # Return the data element IDs = NA
 surveyData[which(is.na(surveyData$V11)),10:11]
