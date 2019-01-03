@@ -11,6 +11,9 @@
 #   de      table created in 3.0_cleanSurveyData.R. Contains
 #           mismatched survey data element names and Framework 
 #           MASTER table element names
+#           
+#   y       survey response variables and Framework MASTER table merged
+#           to match responses with themes 
 # 
 
 ################################################

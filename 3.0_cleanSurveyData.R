@@ -6,6 +6,7 @@
 #   
 # Future enhancements
 #   - align spelling of data elements with Framework MASTER
+#   - separate the script into multiple parts to make for cleaner processing
 #   
 # Prerequisites
 #   surveyData      loaded using the 2_importData.R

@@ -23,8 +23,14 @@ SCRIPTS
                 
 3.0_clean_SurveyData.R  Clean/add IDs/correct spellings, etc.
 
-3.1_clean-02-UniteSurveyData.R    Unite responses for single questions that span multiple 
-                    columns in raw Survey Monkey data
+2.1_findErrors.R    Use to to find and confirm errors in the raw data, e.g., 
+			- missing numeric IDs (NAs)
+			- duplicated ID values
+			- duplicated data element values
+		    	- outputs are used in 
+
+3.1_clean-02-UniteSurveyData.R    Unite responses for single questions that span
+		    multiple columns in raw Survey Monkey data
                     
 4_EDA.R             Uses results from maturityInd.R to create some simple 
                     graphs of the maturity index.
@@ -61,4 +67,7 @@ mydata-clean-20181127.xlsx   dataset export from R. Data source in R:
                     Purpose: data were exported to use Excel for quick sorting
                     of the results. 
                     
-matSort             dataset. Results of the maturityInd.R script.                    
+matSort             dataset. Results of the maturityInd.R script.
+
+y		    survey response variables and Framework MASTER table merged
+		    to match responses with themes                
