@@ -3,7 +3,7 @@
 # Maturity Index Calculation
 # 
 # Purpose
-# Calculate the maturity index for individual data elements
+# Calculate the maturity index for data themes
 # 
 # Future enhancements
 # 
