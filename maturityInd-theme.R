@@ -4,10 +4,7 @@
 # 
 # Purpose
 # Calculate the maturity index for data themes
-# 
-# Future enhancements
-# 
-#   
+#    
 # Prerequisites
 #   mydata      united survey data developed using the clean-02-UniteSurveyData.R script
 #   scoring     imported Excel sheet containing the Maturity Index flag and weights

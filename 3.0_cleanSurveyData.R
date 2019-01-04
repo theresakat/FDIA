@@ -84,6 +84,11 @@ for(i in corrections$DataElem) {
   # surveyData[ which(surveyData$V10==i), 11]<-corrections[ which(corrections$DataElem==i),"newID"] }
   de[ which(de$DataElem == i), "ID"] <- corrections[ which(corrections$DataElem==i),"newID"] }
 
+# Create updated data elements & themes dataframe
+deThm<-merge(de, dat, all.x=TRUE)
+deThm<-subset(deThm, select = c(ID, DataElem,Theme,Element,MinTier_plain,TB_FDE_ProposedFlag,TB_moreFDE_ProposedFlag))
+
+
 #### What am I doing from here on??? ####
 
 # Return the data element IDs = NA
