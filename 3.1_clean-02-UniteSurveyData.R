@@ -38,7 +38,7 @@ processScale<-c("rowID", "No process", "Ad-hoc", "Repeatable", "Defined", "Manag
 
 
 # Retrieve data
-x<-surveyData
+x<-surveyDataThm
 mydata<- data.frame(rowID=c(1:length(x[,1])))
 # mydata<-cbind(mydata,x[,c("V10","V11")])
 # names(mydata)[2:3] <- c("DataElem", "ID")
@@ -61,7 +61,7 @@ blog<-is.empty(as.character(b))
 bb<-recode(as.character(blog),`FALSE` = "1", .default = "", .missing = NULL) #recode "Yes" from empty (FALSE) to 1
 
 df<-data.frame(aa,bb); head(df)
-r<-unite(df,paste(c(q)),1:2, sep="")
+r<-unite(df,paste(c(q)),1:2, sep="")  # throwing "Error: Must supply a symbol or a string as argument"
 
 QuesID.13<-data.frame(factor(r[,1], labels=c("Yes","No"))) # Need to add in some code here to catch missing values.
 names(QuesID.13)<-q

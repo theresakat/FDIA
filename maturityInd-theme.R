@@ -22,7 +22,7 @@
 
 # Create the list of questions that are used to calculate maturity
 select_vect<-unique(scoring[scoring$MaturityVar == 1, "QuesID"])
-select_vect <- select_Vect[2:length(select_Vect)]
+# select_vect <- select_Vect[2:length(select_vect)]
 
 
 # Omit the Comments fields from united survey data by creating a selection vector

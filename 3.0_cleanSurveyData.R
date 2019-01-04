@@ -92,10 +92,13 @@ deThm<-subset(deThm, select = c(ID, DataElem,Theme,Element,MinTier_plain,TB_FDE_
 #### What am I doing from here on??? ####
 
 # Return the data element IDs = NA
-surveyData[which(is.na(surveyData$V11)),10:11]
+# surveyData[which(is.na(surveyData$V11)),10:11]
 
 # Inner join themes with the corrected survey data by ID
-surveyDataThm <- merge(surveyData, dat, by.x = "V11", by.y = "ID") 
+# surveyDataThm <- merge(surveyData, dat, by.x = "V11", by.y = "ID") 
+# surveyDataThm<-merge( deThm, surveyData, by.y = "V10", by.x = "DataElem")
+surveyDataThm<-merge(surveyData, deThm, by.x = "V10", by.y = "DataElem")
+
 
 # Reminder message
 message <- "Use \`surveyDataThm\` for creating the scoresheet tally. surveyDataThm can also be used as basis for uniting variables using \`clean-02-UniteSurveyData.R\`"
