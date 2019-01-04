@@ -50,36 +50,34 @@ q<-"QuesID.13"
 i<-22
 j<-23
 
-a<-factor(x[,i], 
-          levels = c(paste(scoring[scoring$VarID==i,"labelCode"])), 
-          labels = c(paste(scoring[scoring$VarID==i,"label"]))); head(a); str(a)
-alog<-is.empty(as.character(a))
-aa<-recode(as.character(alog),'FALSE'="2", .default = "", .missing = NULL) #recode "No" from 1 to 2
+a<-impFactor2(x, scoring, i)
+  levels(a)[2]<-"Yes" ; head(a); str(a); summary(a)
+aa<-factor(a,order=TRUE, levels = c("Yes", "No"))   #reorder levels to match other Yes/No responses
 
-b<-x[,j]
-blog<-is.empty(as.character(b))
-bb<-recode(as.character(blog),`FALSE` = "1", .default = "", .missing = NULL) #recode "Yes" from empty (FALSE) to 1
+r<-data.frame(aa); head(r)
 
-df<-data.frame(aa,bb); head(df)
-r<-unite(df,paste(c(q)),1:2, sep="")  # throwing "Error: Must supply a symbol or a string as argument"
-
-QuesID.13<-data.frame(factor(r[,1], labels=c("Yes","No"))) # Need to add in some code here to catch missing values.
+QuesID.13<-r   # Need to add in some code here to catch missing values.
 names(QuesID.13)<-q
 summary(QuesID.13[,1])
 mydata<-cbind(mydata,QuesID.13)
 
-rm(df,aa,bb,r,q,a,b, alog,blog)
+rm(a,aa,r,q)
 
 ### Question 14 (QID114) levels = "No", "Yes" ###
 q<-"QuesID.14"
 i<-24
 j<-25
-a<-x[,i]; head(a); str(a)
-alog<-is.empty(as.character(a))
-aa<-recode(as.character(alog),'FALSE'="2", .default = "", .missing = NULL) #recode "No" from 1 to 2
+
+a<-impFactor2(x, scoring, i)  # contains blank level
+  levels(a)[3]<-"Yes" ; head(a); str(a); summary(a)
+  aa<-factor(a,order=TRUE, levels = c("Yes", "No"), exclude = NULL) 
+
 b<-x[,j]
 blog<-is.empty(as.character(b))
 bb<-recode(as.character(blog),'FALSE' = "1", .default = "", .missing = NULL) #recode "Yes" from empty (FALSE) to 1
+
+
+
 
 df<-data.frame(aa,bb); head(df)
 r<-unite(df,paste(c(q)),1:2, sep="")
