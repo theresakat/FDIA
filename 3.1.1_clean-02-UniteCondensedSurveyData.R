@@ -37,17 +37,21 @@ resources<-c("rowID", "Desired", "Planned-no resrcs", "Planned-resrcs avail", "I
 processScale<-c("rowID", "No process", "Ad-hoc", "Repeatable", "Defined", "Managed", "Optimized")
 
 
-# Retrieve data
+# Retrieve survey data & update variable names
 x<-surveyDataThm
-mydata<- data.frame(rowID=c(1:length(x[,1])))
 
-sel<-c(10,1:9,11:22)
-varNames<-c(scoring$VarID-cond[c(sel)])
-names(x)
-# mydata<-cbind(mydata,x[,c("V10","V11")])
-# names(mydata)[2:3] <- c("DataElem", "ID")
-# 
-# 
+varNames<-c(as.character(scoring$VarName[!is.empty(scoring$VarID.condnsd,trim)]))
+# sel<-c(38:50,53:65)
+# varNames<-varNames[-sel]
+varNames<-c(varNames[10],varNames[-10])
+varNames2<-names(x[125:130])
+varNames<-c(varNames[c(1:37,51,52,66:124)],varNames2)
+
+names(x)[1:37]<-varNames[1:37]
+names(x)[51:52]<-varNames[51:52]
+names(x)[66:124]<-varNames[66:124]
+
+mydata<- data.frame(rowID=c(1:length(x[,1])))
 
 ### Question 13 (QID 112) (data_num version) levels = "No", "Yes" ###
 q<-"QuesID.13"
@@ -98,19 +102,21 @@ i<-27  # Active
 j<-28  # Static
 k<-29  # Other (includes comments)
 
-a<-factor(x[,i])
-b<-factor(x[,j])
-c<-as.character(x[,k])  #import as character to recode the comments contained in this field to the label/level "Other"
-clog<-is.empty(c)
-cc<-recode(as.character(clog), 'FALSE' = c(paste(scoring[scoring$VarID==k,"label"])), .default = "", .missing = NULL)
+a<-factor(x[,i], exclude = "")
+levels(a)[2]<-"Other"
+QuesID.16<-ordered(a, levels = c("Active", "Static","Other"))
 
-df<-cbind(x[,i:j],cc)
-head(df)
-
-str(df)
-r<-unite(df, "QuesID.16", 1:3, sep="")
-QuesID.16<-factor(r[,1])
-levels(QuesID.16)[1]<-"missing" #this is the key to simplifying the recoding of factors.
+# b<-factor(x[,j])
+# c<-as.character(x[,k])  #import as character to recode the comments contained in this field to the label/level "Other"
+# clog<-is.empty(c)
+# cc<-recode(as.character(clog), 'FALSE' = c(paste(scoring[scoring$VarID==k,"label"])), .default = "", .missing = NULL)
+# 
+# df<-cbind(x[,i:j],cc)
+# head(df)
+# str(df)
+# r<-unite(df, "QuesID.16", 1:3, sep="")
+# QuesID.16<-factor(r[,1])
+# levels(QuesID.16)[1]<-"missing" #this is the key to simplifying the recoding of factors.
 str(QuesID.16)
 summary(QuesID.16)
 
@@ -121,45 +127,104 @@ rm(a,b,c,df,aa,bb,cc,r,clog,i,j,k,q)
 source("yesno.R") # this function imports and cleans Yes/No questions (but not No/Yes questions)
 
 ### Question 17 (QID105) Levels: Yes, No (in this order)  VarIDs: 30-31 ###
-mydata<-yesno(x,"QuesID.17", 30, 31)
+# mydata<-yesno(x,"QuesID.17", 30, 31)
+i<-29
+QuesID.17<-factor(x[,i], ordered = TRUE, levels = c("Yes", "No"), exclude = "")
+summary(QuesID.17)
+mydata<-cbind(mydata,QuesID.17)
 
 ### Question 18 (QID106) Levels: Yes, No (in this order)  VarIDs: 32-33 ###
-mydata<-yesno(x,"QuesID.18", 32, 33)
+# mydata<-yesno(x,"QuesID.18", 32, 33)
+i<-30
+QuesID.18<-factor(x[,i], ordered = TRUE, levels = c("Yes", "No"), exclude = "") 
+summary(QuesID.18)
+mydata<-cbind(mydata,QuesID.18)
 
 ### Question 19 (QID107) ###
 ### XLS Cols: AH-AI  Levels: Yes, No (in this order)  VarIDs: 34-35
-mydata<-yesno(x,"QuesID.19", 34,35)
-
+# mydata<-yesno(x,"QuesID.19", 34,35)
+i<-31
+QuesID.19<-factor(x[,i], ordered = TRUE, levels = c("Yes", "No"), exclude = "") 
+summary(QuesID.19)
+mydata<-cbind(mydata,QuesID.19)
 
 ### Question 20 (QID108) ###
 ### XLS Cols: AJ-AK  Levels: Yes, No (in this order)  VarIDs: 36-37
-mydata<-yesno(x,"QuesID.20", 36,37)
-
+# mydata<-yesno(x,"QuesID.20", 36,37)
+i<-32
+QuesID.20<-factor(x[,i], ordered = TRUE, levels = c("Yes", "No"), exclude = "") 
+summary(QuesID.20)
+mydata<-cbind(mydata,QuesID.20)
 
 ### QuesID = 21 (QID109) ###
 # this question has 5 possible responses + open-ended text = 6 responses in total
 # Add the returned values to the data frame "mydata" each time.
 q<-"QuesID.21"
+i<-33
+
 # cols<-c(38:43) 
-source("FDIA-functions.R")
 mynames<-c("rowID", "Disagree", "Move", "CC-move","CC-stay","Stay")
 
-myoutdata<-impLongFactWComm(mydata, x,"QuesID.21", 38,43, mynames, scoring)
-mydata<-cbind(mydata, myoutdata)
+a<-factor(x[,i], exclude = "")
+levels(a)<-c(mynames[c(4,5,6,3,2)])
+QuesID.21<-ordered(a, levels = c(mynames[-1]))
+summary(QuesID.21)
 
-rm(myoutdata)
+mydata<-cbind(mydata,QuesID.21)
+
+
+# Alternative method for generating and assigning factor levels
+# mylevels<-c("missing")
+#   for (i in cols)
+#     mylevels<-c(mylevels,paste(scoring[scoring$VarID==i,"label"])) # these aren't coming out to be the same as names(df)
+# levels(rf)<-c(mylevels)
+
+# Import comments to mydata
+comments<-data.frame(x[,cols[length(cols)]], stringsAsFactors = FALSE)
+outdata<-cbind(rf, comments)
+names(outdata)<-c(paste(questionID),paste(questionID,"Comments",sep="."))
+return(outdata)
+})
+}
+
+# 
+# myoutdata<-impLongFactWComm(mydata, x,"QuesID.21", 38,43, mynames, scoring)
+# mydata<-cbind(mydata, myoutdata)
+# 
+# rm(myoutdata)
+a<-factor(x[,i], exclude = "")
+summary(a)
+
+
+
+levels
+summary(QuesID.21)
+
+mydata<-cbind(mydata,QuesID.21)
+
 
 ### QuesID = 22 (QID007) ###
 ### XLS Cols: AR-AX  Levels: "No process", "Inconsistent", "Planned", "Exists-inadequate", 
 ###                          "Exists-adequate", "Recurring", "Comments"
 ### VarIDs: 44-49; comments in VarID 50 (V50)
  
-mynames<-c("rowID", "No process", "Inconsistent", "Planned", "Exists-inadequate", 
-           "Exists-adequate", "Recurring")
-myoutdata<-impLongFactWComm(mydata, x,"QuesID.22", 44,50, mynames, scoring)
-mydata<-cbind(mydata, myoutdata)
+# mynames<-c("rowID", "No process", "Inconsistent", "Planned", "Exists-inadequate", 
+#            "Exists-adequate", "Recurring")
+# myoutdata<-impLongFactWComm(mydata, x,"QuesID.22", 44,50, mynames, scoring)
+# mydata<-cbind(mydata, myoutdata)
+# 
+# rm(myoutdata)
 
-rm(myoutdata)
+q<-"QuesID.22"
+i<-35
+mynames<-c()
+a<-factor(x[,i], exclude = ""); summary(a)
+levels(a)<-c(mynames[c(5,6,3,2)])
+QuesID.22<-ordered(a, levels = c(mynames[-1]))
+summary(QuesID.22)
+
+mydata<-cbind(mydata,QuesID.22)
+
 
 ### QuesID = 26 (QID010) ###
 ### XLS Cols: CC-DH  Levels: "No process", "Under development", "Initiated", "Progressing", 
