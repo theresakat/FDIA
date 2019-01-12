@@ -38,7 +38,7 @@ processScale<-c("rowID", "No process", "Ad-hoc", "Repeatable", "Defined", "Manag
 
 
 # Retrieve data
-x<-surveyDataThm
+x<-surveyDataThm  #
 mydata<- data.frame(rowID=c(1:length(x[,1])))
 # mydata<-cbind(mydata,x[,c("V10","V11")])
 # names(mydata)[2:3] <- c("DataElem", "ID")
