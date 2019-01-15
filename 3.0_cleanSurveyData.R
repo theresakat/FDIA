@@ -127,4 +127,7 @@ y[grep("^digital elevation", y$Element), c("ID","DataElem")]
 dem<-
   
   # 
+### Export current data for backup
+write.table(surveyDataThm, "C:\\temp\\FDIA\\CSV\\surveyDataThm_20190114.csv", sep=",")
+
   
