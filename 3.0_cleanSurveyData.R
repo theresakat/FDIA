@@ -40,7 +40,7 @@ correctionsData<-"/Users/tkb/Work/GEO/fdia-mac/CSV/corrections_20180604.csv"
 ### Create table of mismatched survey data element names and Framework MASTER table element names
 
 # Create empty data frame for data errors
-de <- data.frame(ID=c(1:nrow(surveyData)))
+# de <- data.frame(ID=c(1:nrow(surveyData)))
 
 # Add survey responses for data element names and IDs to the empty data frame 
 de<-data.frame(surveyData[,10:11])

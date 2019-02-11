@@ -37,3 +37,12 @@ scoring<-read.csv(c(scores), header=T, sep=",", nrows = 268)
 tblfwname<-paste("\\","CSV", "1_tblFrameworkData_MASTER.csv", sep = "\\") # Windows
 myfile<-paste(mywd,tblfwname, sep = "")
 dat<-read.csv(c(myfile),header=T, sep = ",")
+
+### Of Possible Use ###
+
+# Create and populate sqlite database
+#library(DBI)
+mydb<-dbConnect(RSQLite::SQLite(),"mydb.sqlite")
+dbWriteTable(mydb,"surveyData",surveyData)
+dbWriteTable(mydb,"scoring",scoring)
+

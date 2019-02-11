@@ -44,7 +44,7 @@ testnumdf<-data.frame(testnum)
 
 # Calculate maturity totals (row sum & avg) & attach data element IDs
 matSum<-rowSums(testnumdf)
-maturity<-cbind(mydata[,c("V11", "V10")], matSum)
+maturity<-cbind(mydata[,c("ID", "V10")], matSum)
 
 matMean<-rowMeans(testnumdf)
 maturity<-cbind(maturity, matMean)

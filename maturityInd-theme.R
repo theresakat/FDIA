@@ -29,19 +29,26 @@ select_vect<-unique(scoring[scoring$MaturityVar == 1, "QuesID"])
 mydataNoComm<-select(mydata, -ends_with("Comments"))
 # myvars<-c("V11", "V10", paste("QuesID.", select_vect, sep=""), "Theme", "Element")
 # myvars<-c(paste("QuesID.", select_vect, sep=""),"Element")
-myvars<- paste("QuesID.", select_vect, sep="")
+myvars<- c("ID", "V10", "Theme", "Element", paste("QuesID.", select_vect, sep=""))
 test<-select(mydataNoComm, myvars)
 
-# Calculate column sums
-sapply(test,function(x) sum(as.numeric(x)))
+### Calculate group & column sums
+# base approach: sapply(test,function(x) sum(as.numeric(x)))
 
 # Convert factors to numbers
 testnum<-lapply(test, function(x) as.numeric(x))
 testnumdf<-data.frame(testnum)
 
-# Calculate maturity totals (row sum & avg) & attach data element IDs
-matSum<-rowSums(testnumdf)
-maturity<-cbind(mydata[,c("V11", "V10")], matSum)
+# Calculate maturity totals (group sum & avg) & attach data element IDs
+# matSum<-rowSums(testnumdf)
+# maturity<-cbind(mydata[,c("ID", "V10")], matSum)
+test2 <- test %>% 
+  select(., -c(ID,V10,Element)) %>%
+  group_by(Theme) %>%
+  summarize(sum(as.numeric(.)))
+         
+
+
 
 matMean<-rowMeans(testnumdf)
 maturity<-cbind(maturity, matMean)
