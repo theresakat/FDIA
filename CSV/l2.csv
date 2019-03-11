@@ -1,0 +1,61 @@
+"Response","QuesID","ID","V10","rowID","Theme","MaturityVar","PointValue","val"
+"75-100%","27",10,"City & County Comprehensive Plans",8,"Admin Bnds",1,"5",5
+"75-100%","27",101,"Oregon Zoning",76,"Admin Bnds",1,"5",5
+"75-100%","27",11,"City Limits",90,"Admin Bnds",1,"5",5
+"75-100%","27",114,"0.5-meter DOQs",11,"Imagery",1,"5",5
+"Active","16",10,"City & County Comprehensive Plans",8,"Admin Bnds",0,"2",2
+"Active","16",11,"City Limits",90,"Admin Bnds",0,"2",2
+"Active","16",114,"0.5-meter DOQs",11,"Imagery",0,"2",2
+"Desired","28",10,"City & County Comprehensive Plans",8,"Admin Bnds",1,"0",0
+"Exists-inadequate","22",11,"City Limits",90,"Admin Bnds",1,"3",3
+"Fully implemented","28",11,"City Limits",90,"Admin Bnds",1,"5",5
+"Inconsistent","22",10,"City & County Comprehensive Plans",8,"Admin Bnds",1,"1",1
+"missing","20",114,"0.5-meter DOQs",11,"Imagery",NA,NA,NA
+"missing","20",11,"City Limits",90,"Admin Bnds",NA,NA,NA
+"missing","26",11,"City Limits",90,"Admin Bnds",NA,NA,NA
+"missing","26",101,"Oregon Zoning",76,"Admin Bnds",NA,NA,NA
+"missing","26",108,"Military Facilities",93,"Preparedness",NA,NA,NA
+"missing","26",114,"0.5-meter DOQs",11,"Imagery",NA,NA,NA
+"NA","28",101,"Oregon Zoning",76,"Admin Bnds",1,"0",0
+"NA","28",108,"Military Facilities",93,"Preparedness",1,"0",0
+"No","14",10,"City & County Comprehensive Plans",8,"Admin Bnds",0,"",NA
+"No","14",114,"0.5-meter DOQs",11,"Imagery",0,"",NA
+"No","18",108,"Military Facilities",93,"Preparedness",0,"",NA
+"No","18",10,"City & County Comprehensive Plans",8,"Admin Bnds",0,"",NA
+"No","19",10,"City & County Comprehensive Plans",8,"Admin Bnds",0,"",NA
+"No","19",101,"Oregon Zoning",76,"Admin Bnds",0,"",NA
+"No","19",108,"Military Facilities",93,"Preparedness",0,"",NA
+"No","20",108,"Military Facilities",93,"Preparedness",0,"",NA
+"No","20",10,"City & County Comprehensive Plans",8,"Admin Bnds",0,"",NA
+"No","20",101,"Oregon Zoning",76,"Admin Bnds",0,"",NA
+"No information","27",108,"Military Facilities",93,"Preparedness",1,"0",0
+"No process","22",108,"Military Facilities",93,"Preparedness",1,"0",0
+"No process","22",101,"Oregon Zoning",76,"Admin Bnds",1,"0",0
+"None","26",10,"City & County Comprehensive Plans",8,"Admin Bnds",NA,NA,NA
+"Other","16",108,"Military Facilities",93,"Preparedness",0,"0",0
+"Other","16",101,"Oregon Zoning",76,"Admin Bnds",0,"0",0
+"Planned-resrcs avail","28",114,"0.5-meter DOQs",11,"Imagery",1,"2",2
+"Recurring","22",114,"0.5-meter DOQs",11,"Imagery",1,"5",5
+"Stay","21",10,"City & County Comprehensive Plans",8,"Admin Bnds",0,"",NA
+"Stay","21",108,"Military Facilities",93,"Preparedness",0,"",NA
+"Stay","21",11,"City Limits",90,"Admin Bnds",0,"",NA
+"Stay","21",114,"0.5-meter DOQs",11,"Imagery",0,"",NA
+"Stay","21",101,"Oregon Zoning",76,"Admin Bnds",0,"",NA
+"Yes","13",11,"City Limits",90,"Admin Bnds",0,"",NA
+"Yes","13",10,"City & County Comprehensive Plans",8,"Admin Bnds",0,"",NA
+"Yes","13",101,"Oregon Zoning",76,"Admin Bnds",0,"",NA
+"Yes","13",108,"Military Facilities",93,"Preparedness",0,"",NA
+"Yes","13",114,"0.5-meter DOQs",11,"Imagery",0,"",NA
+"Yes","14",101,"Oregon Zoning",76,"Admin Bnds",0,"",NA
+"Yes","14",108,"Military Facilities",93,"Preparedness",0,"",NA
+"Yes","14",11,"City Limits",90,"Admin Bnds",0,"",NA
+"Yes","17",101,"Oregon Zoning",76,"Admin Bnds",0,"",NA
+"Yes","17",10,"City & County Comprehensive Plans",8,"Admin Bnds",0,"",NA
+"Yes","17",114,"0.5-meter DOQs",11,"Imagery",0,"",NA
+"Yes","17",108,"Military Facilities",93,"Preparedness",0,"",NA
+"Yes","17",11,"City Limits",90,"Admin Bnds",0,"",NA
+"Yes","18",114,"0.5-meter DOQs",11,"Imagery",0,"",NA
+"Yes","18",101,"Oregon Zoning",76,"Admin Bnds",0,"",NA
+"Yes","18",11,"City Limits",90,"Admin Bnds",0,"",NA
+"Yes","19",114,"0.5-meter DOQs",11,"Imagery",0,"",NA
+"Yes","19",11,"City Limits",90,"Admin Bnds",0,"",NA
