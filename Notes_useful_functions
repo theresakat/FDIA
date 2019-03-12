@@ -1,0 +1,11 @@
+Tidyverse Exploratory Analysis 
+Emily Robinson
+DataCamp
+
+
+Useful functions:
+
+is.na()   logical function that transforms values into TRUE/FALSE. Use with sum() to determine the N or count of values.
+
+na_if("")   function that will reassign NA values to the value in the parens. Not sure if this needs to be text or something else.
+

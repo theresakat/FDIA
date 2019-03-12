@@ -624,6 +624,7 @@ sel<-select(x, selcols)
 mydata<-cbind(sel,mydata)
 thms<-c("ID","V10","Theme", "Element")
 mydata<-merge(mydata,surveyDataThm[,thms], by=c("ID","V10"), all.x = TRUE)
+names(mydata)[2] <- "DataElem"
 # names(mydata)[5:13]<-outnames
 
 ### Select some records from the merged survey data

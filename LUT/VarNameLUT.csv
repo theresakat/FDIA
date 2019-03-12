@@ -1,0 +1,269 @@
+QuesID,ID,unite?,VarID,VarID-condnsd,VarName,Field/Question,Drop
+1,0,0,1,1,Respondent ID,Respondent ID,1
+2,1,0,2,2,Collector ID,Collector ID,1
+3,2,0,3,3,Start Date,Start Date,1
+4,3,0,4,4,End Date,End Date,1
+5,4,0,5,5,IP Address,IP Address,1
+6,5,0,6,6,Email Address,Email Address,1
+7,6,0,7,7,First Name,First Name,1
+8,7,0,8,8,Last Name,Last Name,1
+9,8,0,9,9,BlankQues,Custom Data 1,1
+10,9,0,10,10,ElemName,What data element is being evaluated?,1
+11,10,0,11,11,ElemID,"If you know the numeric identifier for this data element, please enter it.",1
+12,20,0,12,12,ContactName,Contact information,1
+12,21,0,13,13,ContactOrg,,1
+12,22,0,14,14,ContactAddress,,1
+12,23,0,15,15,ContactAddress2,,1
+12,24,0,16,16,ContactCity,,1
+12,25,0,17,17,ContactState,,1
+12,26,0,18,18,ContactZIP,,1
+12,27,0,19,19,ContactCountry,,1
+12,28,0,20,20,ContactEmail,,1
+12,29,0,21,21,ContactPhone,,1
+13,31,1,22,22,ElemOmit,QID 112 Should this data element be removed from the Framework?,0
+13,32,1,23,23,ElemOmitComm,,1
+14,41,1,24,24,ElemNameErr,QID 114 Are there corrections needed to the data element name?,0
+14,42,1,25,25,ElemNameErrComm,,1
+15,51,0,26,26,ElemDescr,QID 116 Please provide a current description of the data element for inclusion in Framework communication materials and the Framework database. (optional),0
+16,61,1,27,27,Activity,QID 006 Is this dataset considered ?active? or ?static??,0
+16,62,1,28,,,,1
+16,63,1,29,28,ActivityComm,,1
+17,71,1,30,29,Statewide,QID 105 Phenomenon is statewide in geographic extent (as appropriate),0
+17,72,1,31,,,,1
+18,81,1,32,30,BroadUsers,QID 106 Data is required by a broad range of users,0
+18,82,1,33,,,,1
+19,91,1,34,31,FoundElem,QID 107 Is identified as a foundational data element,0
+19,92,1,35,,,,1
+20,101,1,36,32,SecFoundElem,QID 108 Element is identified as a secondary foundational data element,0
+20,102,1,37,,,,1
+21,201,1,38,33,AppropThm,QID 109 Data element is organized into the appropriate theme,0
+21,202,1,39,,,,1
+21,203,1,40,,,,1
+21,204,1,41,,,,1
+21,205,1,42,,,,1
+21,206,1,43,34,AppropThmComm,,1
+22,401,1,44,35,FundProc,QID 007 Is there a process to obtain funding for all lifecycle stages of this dataset?,0
+22,402,1,45,,,,1
+22,403,1,46,,,,1
+22,404,1,47,,,,1
+22,405,1,48,,,,1
+22,406,1,49,,,,1
+22,407,1,50,36,FundProcComm,,1
+23,411,0,51,37,FundPrim,QID 008 What is the primary funding source for the data element?,0
+23,412,0,52,38,,,1
+23,413,0,53,39,,,1
+23,414,0,54,40,,,1
+23,415,0,55,41,,,1
+23,416,0,56,42,,,1
+23,417,0,57,43,,,1
+23,418,0,58,44,,,1
+23,419,0,59,45,,,1
+23,420,0,60,46,,,1
+23,421,0,61,47,,,1
+23,422,0,62,48,,,1
+23,423,0,63,49,,,1
+23,424,0,64,50,,,1
+24,431,0,65,51,FundSec,Are there secondary funding sources?,0
+24,432,0,66,,,,1
+25,441,0,67,52,FundSecType,Select the secondary funder(s),0
+25,442,0,68,53,,,1
+25,443,0,69,54,,,1
+25,444,0,70,55,,,1
+25,445,0,71,56,,,1
+25,446,0,72,57,,,1
+25,447,0,73,58,,,1
+25,448,0,74,59,,,1
+25,449,0,75,60,,,1
+25,450,0,76,61,,,1
+25,451,0,77,62,,,1
+25,452,0,78,63,,,1
+25,453,0,79,64,,,1
+25,454,0,80,65,,,1
+26,461,1,81,66,KnowlXferProc,"QID 010 Are there processes and tools in place so that staff are sufficiently knowledgeable to ensure the continuity of the dataset for all stages of the lifecycle, especially during staffing transitions?",0
+26,462,1,82,,,,1
+26,463,1,83,,,,1
+26,464,1,84,,,,1
+26,465,1,85,,,,1
+26,466,1,86,,,,1
+27,501,1,87,67,Authoritative,QID 102 Is the data element authoritative?,0
+27,502,1,88,,,,1
+27,503,1,89,,,,1
+27,504,1,90,,,,1
+27,505,1,91,,,,1
+27,506,1,92,,,,1
+28,511,1,93,68,StndOGIC,QID 014 Does this data element have a standard that has been endorsed by Oregon Geographic Information Council?,0
+28,512,1,94,,,,1
+28,513,1,95,,,,1
+28,514,1,96,,,,1
+28,515,1,97,,,,1
+28,516,1,98,,,,1
+28,517,1,99,,,,1
+29,521,0,100,69,StndType,QID 015 What type of data standard is used for this data element?,0
+29,522,0,101,70,StndTypeComm,,1
+30,523,1,102,71,StndType2,QID 015 What type of data standard is used for this data element?,0
+30,524,1,103,72,StndType2Comm,,1
+31,531,1,104,73,QAProc,QID 011 Is there a quality assurance process for the dataset?,0
+31,532,1,105,,,,1
+31,533,1,106,,,,1
+31,534,1,107,,,,1
+31,535,1,108,,,,1
+31,536,1,109,,,,1
+32,541,1,110,74,QAProcType,QID 012 What methods are used to develop and complete quality assurance assessments?,0
+32,542,1,111,,,,1
+32,543,1,112,75,QAProcTypeComm,,1
+33,541,1,113,76,EvalSensPrivConf,"QID 013 Has an assessment been done to evaluate the sensitivity, privacy, and confidentiality of this dataset?",0
+33,542,1,114,,,,1
+33,543,1,115,,,,1
+33,544,1,116,,,,1
+33,545,1,117,,,,1
+33,546,1,118,,,,1
+33,547,1,119,77,EvalSensPrivConfComm,,1
+34,551,1,120,78,BusCase,"QID 101 Is there a business case, business requirements, or similar document for this data element?",0
+34,552,1,121,,,,1
+34,553,1,122,,,,1
+34,554,1,123,,,,1
+34,555,1,124,,,,1
+34,556,1,125,,,,1
+35,601,1,126,79,EvalRedndcy,QID 016 Has an assessment been done to determine if data meeting data element requirements already exists from other sources (either within or outside Oregon?s GIS Framework) before collecting or acquiring new data?,0
+35,602,1,127,,,,1
+35,603,1,128,,,,1
+35,604,1,129,,,,1
+35,605,1,130,,,,1
+35,606,1,131,,,,1
+36,611,0,132,80,EvalRedType,QID 017 What actions are/were performed to determine if data already exists from other sources?,0
+36,612,0,133,,,,1
+36,613,0,134,,,,1
+36,614,0,135,,,,1
+36,615,0,136,,,,1
+36,616,0,137,,,,1
+36,617,0,138,81,EvalRedTypeComm,,1
+37,701,1,139,82,ObtnProc,QID 018 Is there a process for obtaining data for this dataset?,0
+37,702,1,140,,,,1
+37,703,1,141,,,,1
+37,704,1,142,,,,1
+37,705,1,143,,,,1
+37,706,1,144,,,,1
+38,711,1,145,83,ObtnProcType,QID 019 (optional) What actions are or were performed to obtain data?,0
+38,712,1,146,,,,1
+38,713,1,147,,,,1
+38,714,1,148,,,,1
+38,715,1,149,84,ObtnProcTypeComm,,1
+39,721,1,150,85,StndMetad,QID 020 Is the metadata in an OGIC-endorsed metadata standard?,0
+39,722,1,151,,,,1
+39,723,1,152,,,,1
+40,731,1,153,86,CmpltnssExtnt,QID 021 What is the estimated completeness of the geographic extent of the data element?,0
+40,732,1,154,,,,1
+40,733,1,155,,,,1
+40,734,1,156,,,,1
+40,735,1,157,,,,1
+40,736,1,158,,,,1
+41,741,1,159,87,CmpltnssExtntType,QID 022 (optional) What is the geographic extent of the data element?,0
+41,742,1,160,,,,1
+41,743,1,161,,,,1
+41,744,1,162,,,,1
+41,745,1,163,,,,1
+41,746,1,164,,,,1
+41,747,1,165,88,CmpltnssExtntTypeComm,,1
+42,751,1,166,89,CmpltnssRes,QID 023 What is the estimated completeness of the resolution of the data element?,0
+42,752,1,167,,,,1
+42,753,1,168,,,,1
+42,754,1,169,,,,1
+42,755,1,170,,,,1
+42,756,1,171,,,,1
+43,801,1,172,90,AccessType,QID 004 Is the data element publicly sharable?,0
+43,802,1,173,,,,1
+43,803,1,174,,,,1
+44,811,1,175,91,AccessOSDL,QID 025 Do users have access to the data element via Oregon Spatial Data Library?,0
+44,812,1,176,,,,1
+44,813,1,177,,,,1
+44,814,1,178,,,,1
+44,815,1,179,,,,1
+44,816,1,180,,,,1
+44,817,1,181,,,,1
+44,818,1,182,92,AccessOSDLComm,,1
+45,821,1,183,93,OSDLErr,QID 025.2 Is the Oregon Spatial Data Library record for this data element fully correct?,0
+45,822,1,184,94,OSDLErrComm,,1
+46,831,1,185,95,AccessProc,QID 025.1 What is the process for accessing the data element?,0
+46,832,1,186,,,,1
+46,833,1,187,,,,1
+46,834,1,188,,,,1
+46,835,1,189,,,,1
+46,836,1,190,,,,1
+46,837,1,191,96,AccessProcComm,,1
+47,901,1,192,97,StwdProc,QID 026 Is there a stewardship process in place for this dataset?,0
+47,902,1,193,,,,1
+47,903,1,194,,,,1
+47,904,1,195,,,,1
+47,905,1,196,,,,1
+47,906,1,197,98,StwdProcComm,,1
+48,911,1,198,99,StwdProcType,QID 027 Please select the closest description to the existing stewardship process.,0
+48,912,1,199,,,,1
+48,913,1,200,,,,1
+48,914,1,201,,,,1
+48,915,1,202,,,,1
+48,916,1,203,,,,1
+48,917,1,204,,,,1
+49,921,1,205,100,QAQCProc,QID 028 Is there a quality assurance/quality control (QA/QC) process as part of this dataset?s maintenance? ,0
+49,922,1,206,,,,1
+49,923,1,207,,,,1
+49,924,1,208,,,,1
+49,925,1,209,,,,1
+49,926,1,210,,,,1
+50,931,1,211,101,HrzIntProc,QID 103 Are there procedures in place for meeting the horizontal integration needs of users?,0
+50,932,1,212,,,,1
+50,933,1,213,,,,1
+50,934,1,214,,,,1
+50,935,1,215,,,,1
+50,936,1,216,,,,1
+50,937,0,217,102,HrzIntProcComm,,1
+51,941,1,218,103,VrtIntProc,QID 104 Are there procedures in place for meeting the vertical integration needs of users?,0
+51,942,1,219,,,,1
+51,943,1,220,,,,1
+51,944,1,221,,,,1
+51,945,1,222,,,,1
+51,946,1,223,,,,1
+51,947,0,224,,,,1
+51,948,0,225,104,VrtIntProcComm,,1
+52,1001,1,226,105,EvalNeed,QID 029 Is there a process to determine if the dataset meets user needs?,0
+52,1002,1,227,,,,1
+52,1003,1,228,,,,1
+52,1004,1,229,,,,1
+52,1005,1,230,,,,1
+52,1006,1,231,,,,1
+52,1007,0,232,106,EvalNeedComm,,1
+53,1011,1,233,107,TechXferProc,QID 030 Is there a process to provide users information on how to evaluate and properly use the dataset?,0
+53,1012,1,234,,,,1
+53,1013,1,235,,,,1
+53,1014,1,236,,,,1
+53,1015,1,237,,,,1
+53,1016,1,238,,,,1
+53,1017,0,239,108,TechXferProcComm,,1
+54,1101,1,240,109,AppraisProc,QID 031 (optional) Is there an appraising process for the dataset?,0
+54,1102,1,241,,,,1
+54,1103,1,242,,,,1
+54,1104,1,243,,,,1
+54,1105,1,244,,,,1
+54,1106,1,245,,,,1
+54,1107,0,246,110,AppraisProcComm,,1
+55,1111,1,247,111,ArchvLoc,QID 032 (optional) Where is the digital data being archived?,0
+55,1112,1,248,,,,1
+55,1113,1,249,,,,1
+55,1114,1,250,,,,1
+55,1115,1,251,,,,1
+55,1116,0,252,112,ArchvLocComm,,1
+56,1201,0,253,113,ReviewrName,Contact information for the reviewer,1
+56,1202,0,254,114,ReviewrOrg,,1
+56,1203,0,255,115,ReviewrAddress,,1
+56,1204,0,256,116,ReviewrAddress2,,1
+56,1205,0,257,117,ReviewrCity,,1
+56,1206,0,258,118,ReviewrState,,1
+56,1207,0,259,119,ReviewrZIP,,1
+56,1208,0,260,120,ReviewrCountry,,1
+56,1209,0,261,121,ReviewrEmail,,1
+56,1210,0,262,122,ReviewrPHone,,1
+57,1220,1,263,123,WantCopy,Would you like a copy of your responses emailed to you?,1
+57,1221,1,264,,,,1
+58,1222,1,265,124,CopyFormat,In what format would you like to receive your responses>,1
+58,1223,1,266,,,,1
+58,1224,1,267,,,,1
+58,1225,1,268,,,,1

@@ -1,0 +1,74 @@
+---
+title: "tidying.R"
+author: "Theresa Burcsu"
+date: "March 12, 2019"
+output: word_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## R Markdown
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
+
+```{r cars}
+summary(cars)
+```
+
+```{r}
+# Create the list of questions that are used to calculate maturity
+select_vect <- unique(scoring[scoring$MaturityVar == 1, "QuesID"])
+```
+
+```{r}
+MatQs <- paste0(rep("QuesID."), select_vect)
+cnk5<-select(mydata, c(ID, DataElem, MatQs , 55))
+```
+
+```{r}
+colnames(cnk5)
+```
+
+```{r}
+long <- cnk5 %>% gather(QuesID, Response, c(MatQs), na.rm = FALSE)
+head(long)
+```
+
+```{r}
+long %>% separate(QuesID, c(NA, "QuesID"))
+```
+```{r}
+# Create LUT for labels from Scoring
+lut<-scoring[22:252, c("MaturityVar", "QuesID", "shortLabel",as.integer("PointValue"))]
+val<-as.integer(lut$PointValue)
+lut<-cbind(lut,val)
+names(lut)[3]<-"Response"
+```
+
+```{r}
+lut2 <-scoring[22:252, c("MaturityVar","QuesID","VarName")]
+QuesIDStr <- as.character(lut2[,"QuesID"])
+lut2<-cbind(lut2,QuesIDStr)
+```
+
+```{r}
+str(s)
+```
+
+```{r}
+merge(lut2, s, by.x = c("Response","QuesIDStr"), by.y = c("Response", "QuesID"), all.x = TRUE)
+
+```
+<!-- # Merge the long data with the LUT -->
+<!-- l2<-merge(s,lut, by.x = c("Response","QuesID"), by.y = c("Response", "QuesID"), all.x = TRUE) -->
+
+
+<!-- # Subset and calculate the summaries by theme -->
+<!-- longVals <- l2[l2$MaturityVar == 1,] -->
+<!-- cdata<-ddply(longVals, c("V10", "Theme"), summarize, -->
+<!--              N = sum(!is.na(val)), -->
+<!--              mean = mean(!is.na(val))) -->
