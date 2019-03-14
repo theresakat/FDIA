@@ -9,3 +9,133 @@ is.na()   logical function that transforms values into TRUE/FALSE. Use with sum(
 
 na_if("")   function that will reassign NA values to the value in the parens. Not sure if this needs to be text or something else.
 
+map_df()	usage: purrr::map_df()
+
+readr::read.csv
+
+
+Notes:
+- Count the NAs in a data set and assign to a variable
+
+	data %>% summarize(number_nas = sum(is.na(var)))
+
+
+- tidyverse style:
+
+	data %>% purrr::map_df(~ sum(is.na(var)))
+
+- But, are you sure that you have the number of NAs you
+	think you do?
+
+- Try, count() instead
+
+	data %>% count(var)
+
+	Yields a table with the unique vals and their counts
+
+- Reassign blanks to NAs using the %<>% pipe. This pipe
+	redirects the output back to the original data set.
+
+	data %<>% na_if("")
+
+	Is the same as:
+
+	data <- data %>% na_if("")
+
+- Reading in data in the tidyverse
+
+	data <- readr::read.csv("file.csv",
+			guess_max = nrow(data))
+
+	problems(data) will reveal issues. Can use the 
+		guess_max argument to use all of the data
+		rows to format the input variables.
+
+- Use tidyverse in RMarkdown to access portions of the data
+
+	data %>% select_if(condition) %>% skimr::skim()
+
+	skimr::skim() yeilds summary stats for numeric
+		variables + histograms for each num. var.
+
+- Get the number of distinct response in each variable.
+	Use gather to yield the data in a long format 
+	(the default form is a wide format). Sort the 
+	output in descending order for easier viewing. 
+
+	data %>% purrr::map_df(~ n_distinct(.)) %>%
+		tidyr::gather(key, value) %>%
+		arrange(desc(value))
+
+- Again, use count() to understand the frequency of unique
+	responses. Include the sort argument to sort the
+	output.
+
+	data %>% count(var, sort = TRUE)
+
+- Use the select() function to  identify the variable of 
+	interest when piping data. Next, filter the data
+	to remove NAs. Finally, use mutate() to create a
+	new column based on the expression.
+
+	data %>% select(var) %>% 
+		filter(!is.na(var) %>%
+		mutate(newVar = expression)
+
+str_split()	splits a list into components
+
+unnest()	splits a list into components and reformats
+		into a single column
+
+separate_rows(var, sep = "")	splits a list into componetnts
+
+
+- Plot the count of each response using a column plot, in
+	descending order by the Y variable (aka. n) using the
+	fct_reorder(var, by). The column plot is transformed
+	to a bar using the coord_flip() function.
+	
+	data %>% count(var) %>% 
+		ggplot(aes(x = fct_reorder(var, n), y = n)) +
+		geom_col() +
+		coord_flip()
+
+- Use the select() function with conditions to select columns
+	that meet criteria.
+	
+	```{r}
+	data %>%
+		select(contains("pattern")) %>%
+	```	
+
+- Use the pipe %>% to do something else with the selection
+	above, such as reshape the data into a long form where
+	NAs are removed, and any column that starts with 
+	"pattern" will be renamed to remove the pattern. 
+	[Note: could use similar func to assign the maturity
+	categories to the columns.]
+
+	```{r}
+	data %>%
+		select(contains("pattern")) %>%
+		gather(key, value) %>%
+		filter(!is.na(value) %>%
+		mutate(key = stringr::str_remove(key,
+		"pattern")
+	```	
+
+- Save the result by adding the object name and R assignment
+	operator to the beginning of the code above. 
+
+
+	```{r}
+	newobject <- data %>%
+		select(contains("pattern")) %>%
+		gather(key, value) %>%
+		filter(!is.na(value) %>%
+		mutate(key = stringr::str_remove(key,
+		"pattern")
+	```	
+Time: 29:00
+
+-  
