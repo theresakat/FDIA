@@ -8,15 +8,14 @@
 
 # library(stringr) # not available for R version 3.5.1
 library(plyr)
-# library(reshape2)
+library(reshape2)
 library(ggplot2)
 library(rlang)
 library(rapportools) # install returned 
 library(tidyr)
 library(tidyverse)
-#library(dplyr) included in tidyverse
 # library(xlsx)
-library(DBI)
+# library(DBI)
 library(dplyr)
 library(tidyselect)
 

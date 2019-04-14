@@ -43,10 +43,13 @@ VarNameLUT <- VarNameLUT[VarNameLUT$Drop == 0,]
 l2<-merge(s,lut, by.x = c("Response","QuesID"), by.y = c("Response", "QuesID"), all.x = TRUE)
 l3 <- merge(l2, VarNameLUT, by = "QuesID", all.x = TRUE)
   
-# Subset and calculate the summaries by theme
+# Subset and calculate the summaries by theme. (NOTE: grouping variable "Theme" is a factor
+#   and point value variable is a character variable. Future enhancement: convert these to 
+#   "chr" and "int" respectively during an earlier step.)
 longVals <- l3[l3$MaturityVar == 1,]
 write.csv(longVals, "c:\\Temp\\FDIA\\CSV\\longVals.csv", sep = ",")
 
-# cdata<-ddply(longVals, c("DataElem", "Theme"), summarize,
-#              N = sum((val)),
-#              mean = mean(!is.na(val)))
+longVals %>% 
+  group_by(as.character(Theme)) %>% 
+  summarize(mean = mean(as.integer(PointValue)), 
+            sum = sum(as.integer(PointValue)))

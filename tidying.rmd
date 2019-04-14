@@ -2,21 +2,17 @@
 title: "tidying.R"
 author: "Theresa Burcsu"
 date: "March 12, 2019"
-output: word_document
+output:
+  word_document: default
+  pdf_document: default
 ---
+
+Purpose: This script and resulting report outline the steps used to tidy the cleaned and united FDIA survey data used to assess the maturity of the Oregon GIS Framework. 
+
+Background: Maturity of the Oregon GIS Framework is evaluated at the data element and data theme levels. 
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
-```
-
-## R Markdown
-
-This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
-
-When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
-
-```{r cars}
-summary(cars)
 ```
 
 ```{r}
