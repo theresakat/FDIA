@@ -28,30 +28,55 @@ cnk4 <- select(mydata, c(ID, DataElem, MatQs, 55))
 
 # Tidy Maturity Questions data
 long <- cnk4 %>% gather(QuesID, Response, c(MatQs), na.rm = FALSE)
-s<-long %>% separate(QuesID, c(NA, "QuesID"))
+long2 <-long %>% separate(QuesID, c(NA, "QuesID")) %>% mutate(QuesID = as.integer(QuesID))
 
-# Merge labels and variable (question) names
+# Merge maturity var flag and variable (question) names
   # Create the LUT from Scoring
 lut<-scoring[22:252, c("MaturityVar", "QuesID", "shortLabel","PointValue")] 
 val<-as.integer(lut$PointValue)
 lut<-cbind(lut,val)
-names(lut)[3]<-"Response"
+lut<-lut %>% select(everything()) %>% rename(PtVal_int = val, Response = shortLabel) 
+
 
   # Import Variable Name LUT
-VarNameLUT<-read.csv("C:\\Temp\\FDIA\\LUT\\VarNameLUT.csv", stringsAsFactors = FALSE)
-VarNameLUT <- VarNameLUT[VarNameLUT$Drop == 0,]
+VarNameLUT<-read.csv("C:\\Temp\\FDIA\\luts\\VarNameLUT.csv", stringsAsFactors = FALSE)
+VarNameLUT <- filter(VarNameLUT, Drop == 0)
 
-  # Merge the long data with the LUT
-l2<-merge(s,lut, by.x = c("Response","QuesID"), by.y = c("Response", "QuesID"), all.x = TRUE)
-l3 <- merge(l2, VarNameLUT, by = "QuesID", all.x = TRUE)
-  
+  # Join the long data with the look up tables of maturity index values and var names
+l2<-left_join(x = long2, y = lutu, by = c("Response","QuesID")) 
+l3<-left_join(x = l2, y = VarNameLUT, by = "QuesID")
+
 # Subset and calculate the summaries by theme. (NOTES: grouping variable "Theme" is a factor
 #   and point value variable is a character variable. Future enhancement: convert these to 
 #   "chr" and "int" respectively during an earlier step.)
 longVals <- l3[l3$MaturityVar == 1,]
 write.csv(longVals, "c:\\Temp\\FDIA\\CSV\\longVals.csv", sep = ",")
+rm(l2,l3)
 
-longVals %>% 
+# Theme Maturity Index
+matThm <- longVals %>% 
   group_by(as.character(Theme)) %>% 
-  summarize(mean = mean(as.integer(PointValue)), 
-            sum = sum(as.integer(PointValue)))
+  summarize(mean = mean(PtVal_int, na.rm=TRUE), 
+            sum = sum(PtVal_int))
+
+# Descriptive stats per question. Useful for 
+longVals %>% 
+  group_by(VarName) %>% 
+  summarize(n = n(),
+            min = min(PtVal_int),
+            mean = mean(PtVal_int), 
+            max = max(PtVal_int),
+            varitn = var(PtVal_int),
+            sd = sd(PtVal_int),
+            se = sd/sqrt(n))
+
+
+
+
+# Functions
+
+# Calculate the most frequently occurring value, the mode. NOTE: not working consistently.
+Mode<- function(x) {
+  ux <- unique(x)
+  ux[which.max(tabulate(match(x,ux)))]
+}
