@@ -43,10 +43,15 @@ maturityInd.R       Calculate the maturity index.
 
 scoresheet.R        Generate element counts by theme.
 
+tidying.R	    Use to convert cleaned and united data to a tidy data format; 
+		    calculate theme maturity index; draft work to calcuate data life cycle
+		    stage maturity index
+                    
+
 FDIAfunctions.R     collection of functions to import factors. Future 
                     enhancement: create a single function that can use 
                     conditions to apply the correct import procedure/func.
-                    
+
 yesno.R             Unite yes/no question columns in in raw Survey Monkey data
 
 
@@ -88,5 +93,9 @@ correctionsData     dataset. Contains manually corrected data elem ID numbers.
                     
 de                  temporary dataset. data elements and IDs from surveyData
 
-y		                survey response variables and Framework MASTER table merged
-		                to match responses with themes
+y		    survey response variables and Framework MASTER table merged
+		    to match responses with themes
+
+longVals	    dataset. Contains cleaned and united (known errors corrected) survey 
+		    data. Data can be used to calculate maturity indices. Additional LUTS
+		    may be required to effectively slice the data.
