@@ -94,6 +94,7 @@ matThmStage <- longVals %>%
   summarize(n = n(),
             min = min(PtVal_int),
             mean = mean(PtVal_int, na.rm=TRUE), 
+            mode = Mode(PtVal_int),
             max = max(PtVal_int),
             varitn = var(PtVal_int),
             sd = sd(PtVal_int),
