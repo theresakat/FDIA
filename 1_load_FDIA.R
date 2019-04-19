@@ -12,11 +12,12 @@ library(reshape2)
 library(ggplot2)
 library(rlang)
 library(rapportools) # install returned 
-library(tidyr)
-library(tidyverse)
 # library(xlsx)
 # library(DBI)
-library(dplyr)
+# library(dplyr)
 library(tidyselect)
+library(tidyr)
+library(tidyverse)
+
 
 
