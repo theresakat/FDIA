@@ -48,8 +48,8 @@ tidying.R	    Use to convert cleaned and united data to a tidy data format;
 		    stage maturity index
                     
 
-FDIAfunctions.R     collection of functions to import factors. Future 
-                    enhancement: create a single function that can use 
+FDIAfunctions.R     collection of functions to import factors, calculate the mode, and draw 
+		    gauge graphs. Future enhancement: create a single function that can use 
                     conditions to apply the correct import procedure/func.
 
 yesno.R             Unite yes/no question columns in in raw Survey Monkey data
@@ -99,3 +99,7 @@ y		    survey response variables and Framework MASTER table merged
 longVals	    dataset. Contains cleaned and united (known errors corrected) survey 
 		    data. Data can be used to calculate maturity indices. Additional LUTS
 		    may be required to effectively slice the data.
+
+matThmStage	    data table. Contains maturity index by life cycle stage for each theme.
+
+matThm		    data table.	Contains maturity index for each theme.

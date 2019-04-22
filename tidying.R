@@ -58,10 +58,9 @@ matThm <- longVals %>%
   summarize(n = n(),
             mean = mean(PtVal_int, na.rm=TRUE), 
             mode = Mode(PtVal_int),
-            sum = sum(PtVal_int))
+            sum = sum(PtVal_int)) 
+write.csv(matThm, "c:\\Temp\\FDIA\\CSV\\matThm.csv")
 
-# EDA of Maturity Index
-distinctElems<- longVals %>% group_by(ID.x, Theme) %>% select(DataElem) %>% distinct()
 
 # Produce response summaries grouped by theme and question 
 longVals %>% 
@@ -88,9 +87,9 @@ rm(l1)
 # Join lookup table to data frame
 longVals <- left_join(x = longVals, y = lutStages, by = "QuesID")
 
-# Descriptive stats per question. Useful for 
+# Maturity by Theme and Life Cycle Stage
 matThmStage <- longVals %>% 
-  group_by(Theme, Category) %>% 
+  group_by(Theme, Category, CatID) %>% 
   summarize(n = n(),
             min = min(PtVal_int),
             mean = mean(PtVal_int, na.rm=TRUE), 
@@ -98,10 +97,47 @@ matThmStage <- longVals %>%
             max = max(PtVal_int),
             varitn = var(PtVal_int),
             sd = sd(PtVal_int),
-            se = sd/sqrt(n))
+            se = sd/sqrt(n),
+            pos = round(100*(mean/5),digits=0)) %>% 
+  arrange(Theme,CatID)
 
 write.csv(matThmStage, "c:\\Temp\\FDIA\\CSV\\matThmStage.csv")
 
+# Example code to create multiple graphs on a single view
+grid.arrange(arrangeGrob(gg.gauge(62,0.5),gg.gauge(20,1),gg.gauge(52,2.6),gg.gauge(90,4.5),ncol=2))
+
+             # customize code above to use the rounded value stored in matThmStage$mean,
+             # and positioning the mean using value in matThmStage$pos. Alternatively,
+             # omit the label associated with the value and let the graphic tell the value
+             
+             
+plot<-lapply(...)
+test<-marrangeGrob(gg.gauge(10,0.5),gg.gauge(20,1),gg.gauge(52,2.6),gg.gauge(90,4.5),nrow=3,ncol=2)
+ggsave("C:\\Temp\\FDIA\\graphics\\test.pdf",test)
+
+# Maturity by Life Cycle Stage (overall)
+matStage <- longVals %>% 
+  group_by(Category, CatID) %>% 
+  summarize(n = n(),
+            min = min(PtVal_int),
+            mean = mean(PtVal_int, na.rm=TRUE), 
+            mode = Mode(PtVal_int),
+            max = max(PtVal_int),
+            varitn = var(PtVal_int),
+            sd = sd(PtVal_int),
+            se = sd/sqrt(n),
+            pos = round(100*(mean/5),digits=0)) %>% 
+  arrange(CatID)
+write.csv(matStage,  "c:\\Temp\\FDIA\\CSV\\matStage.csv")
+
+# Data Element Maturity Index
+matElem <- longVals %>% 
+  group_by(as.character(DataElem)) %>% 
+  summarize(n = n(),
+            mean = mean(PtVal_int, na.rm=TRUE), 
+            mode = Mode(PtVal_int),
+            sum = sum(PtVal_int)) %>% 
+  arrange(DataElem)
 
 
 # Functions
